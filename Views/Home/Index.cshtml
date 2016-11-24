@@ -1,0 +1,17 @@
+@using ReactPoc.Models
+@model HomeViewModel
+
+<div id="entry"></div>
+
+<nav>
+    <ul>
+        @foreach (MenuItem route in Model.Routes)
+        {
+            <a href="@route.Url"><li>@route.Title</li></a>
+        }
+    </ul>
+</nav>
+
+@section scripts {
+    <script src="~/dist/app.js"></script>
+}

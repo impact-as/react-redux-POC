@@ -1,0 +1,14 @@
+[
+    {"id": "1", "name": "Used can of coca cola", "description": "", "price": 5, "inStock": true},
+    {"id": "2", "name": "iPhone", "description": "", "price": 5000, "inStock": true},
+    {"id": "3", "name": "Food", "description": "", "price": 50, "inStock": true},
+    {"id": "4", "name": "Camera", "description": "", "price": 300, "inStock": true},
+    {"id": "5", "name": "Webstorm license", "description": "", "price": 1000, "inStock": true},
+    {"id": "6", "name": "Party invite", "description": "", "price": 60, "inStock": true},
+    {"id": "7", "name": "Haloween costume", "description": "", "price": 200, "inStock": true},
+    {"id": "8", "name": "500 legos", "description": "", "price": 250, "inStock": true},
+    {"id": "9", "name": "CD player", "description": "", "price": 100, "inStock": true},
+    {"id": "10", "name": "Old belt", "description": "", "price": 70, "inStock": true},
+    {"id": "11", "name": "Bowling shoes", "description": "", "price": 330, "inStock": true},
+    {"id": "12", "name": "Dusty hat", "description": "", "price": 150, "inStock": true}
+]

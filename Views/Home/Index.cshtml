@@ -1,4 +1,6 @@
 @using ReactPoc.Models
+@using Newtonsoft.Json
+
 @model HomeViewModel
 
 <div id="entry"></div>
@@ -13,5 +15,8 @@
 </nav>
 
 @section scripts {
+    <script>
+        window.menuItems = @Html.Raw(JsonConvert.SerializeObject(Model.Routes));
+    </script>
     <script src="~/dist/app.js"></script>
 }

@@ -1,21 +1,20 @@
 import * as React from "react";
 import { bindActionCreators } from 'redux';
-import { connect } from "react-redux";
+import { connect, MapStateToProps, MapDispatchToPropsFunction, ComponentDecorator } from "react-redux";
 
 import { actions, IActionCreators } from './test.redux';
 
-interface ITestComponentProps {
+interface ITestComponentStateProps {
     count?: number;
+}
+
+interface ITestComponentDispatchProps {
     actions?: IActionCreators;
 };
 
 interface ITestComponentState {};
 
-@connect(
-    (state) => ({count: state.count}), 
-    (dispatch) => ({actions: bindActionCreators(actions, dispatch)})
-)
-export class TestComponent extends React.Component<ITestComponentProps, ITestComponentState> {
+class StatelessTestComponent extends React.Component<ITestComponentStateProps & ITestComponentDispatchProps, ITestComponentState> {
     public render(): JSX.Element {
         return (
             <div>
@@ -26,3 +25,8 @@ export class TestComponent extends React.Component<ITestComponentProps, ITestCom
         );
     }
 }
+
+export const TestComponent = connect(
+    (state): ITestComponentStateProps => ({count: state.count}), 
+    (dispatch): ITestComponentDispatchProps => ({actions: bindActionCreators(actions, dispatch)})
+)(StatelessTestComponent);

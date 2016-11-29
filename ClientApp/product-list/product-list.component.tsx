@@ -4,19 +4,18 @@ import { bindActionCreators } from 'redux';
 
 import { actions, IProductActionsMapObject } from './product-list.redux';
 
-interface IProductListProps {
+interface IProductListStateProps {
     fetching?: boolean;
-    products?: any[];
-    actions?: IProductActionsMapObject
+    products?: any[];  
 };
+
+interface IProductListDispatchProps {
+    actions?: IProductActionsMapObject
+}
 
 interface IProductListState {};
 
-@connect(
-    (state) => ({products: state.productList.products, fetching: state.productList.fetching}),
-    (dispatch) => ({actions: bindActionCreators(actions, dispatch)})
-)
-export class ProductList extends React.Component<IProductListProps, IProductListState> {
+export class StatelessProductList extends React.Component<IProductListStateProps & IProductListDispatchProps, IProductListState> {
     componentWillMount() {
         this.props.actions.fetchProducts();
     }
@@ -29,3 +28,9 @@ export class ProductList extends React.Component<IProductListProps, IProductList
         );
     }
 }
+
+
+export const ProductList = connect(
+    (state): IProductListStateProps => ({products: state.productList.products, fetching: state.productList.fetching}),
+    (dispatch): IProductListDispatchProps => ({actions: bindActionCreators(actions, dispatch)})
+)(StatelessProductList);

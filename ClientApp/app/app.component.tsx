@@ -1,6 +1,9 @@
 import * as React from "react";
 import { Link } from 'react-router';
 
+import { TextSpot } from '../components/text.spot.component';
+import { ImageSpot } from '../components/image.spot.component';
+
 interface IAppComponentProps {};
 interface IAppComponentState {
     menuItems: any[];
@@ -18,6 +21,11 @@ export class AppComponent extends React.Component<IAppComponentProps, IAppCompon
                     <Link to={menuItem.Url}>{menuItem.Title}</Link>
                 ))}
                 {this.props.children}
+
+
+                <TextSpot text="<h1>Content</h1><p>Content from the CMS</p>" />
+
+                <ImageSpot src="http://lorempixel.com/400/200/sports/1/" />
             </span>
         );
     }

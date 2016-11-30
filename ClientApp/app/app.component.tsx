@@ -1,9 +1,6 @@
 import * as React from "react";
 import { Link } from 'react-router';
 
-import { TextSpot } from '../components/text.spot.component';
-import { GallerySpot } from '../components/gallery.spot.component';
-
 interface IAppComponentProps {};
 interface IAppComponentState {
     menuItems: any[];

@@ -16,6 +16,13 @@ module.exports = webpackMerge(commonConfig, {
         new ExtractTextPlugin('[name].css')
     ],
 
+    "resolve": {
+        "alias": {
+        "react": "preact-compat",
+        "react-dom": "preact-compat"
+        }
+    }, 
+
     devServer: {
         historyApiFallback: true
     }

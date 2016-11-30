@@ -6,6 +6,6 @@ interface ISubpageComponentState {};
 
 export class SubpageComponent extends React.Component<ISubpageComponentProps, ISubpageComponentState> {
     public render(): JSX.Element {
-        return (<span>Body</span>);
+        return (<span>Subpage</span>);
     }
 }

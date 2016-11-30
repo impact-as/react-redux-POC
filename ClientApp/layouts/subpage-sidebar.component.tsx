@@ -6,6 +6,6 @@ interface ISubpageSidebarComponentState {};
 
 export class SubpageSidebarComponent extends React.Component<ISubpageSidebarComponentProps, ISubpageSidebarComponentState> {
     public render(): JSX.Element {
-        return (<span>Body</span>);
+        return (<span>Filterpage</span>);
     }
 }

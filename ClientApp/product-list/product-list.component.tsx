@@ -29,7 +29,6 @@ export class StatelessProductList extends React.Component<IProductListStateProps
     }
 }
 
-
 export const ProductList = connect(
     (state): IProductListStateProps => ({products: state.productList.products, fetching: state.productList.fetching}),
     (dispatch): IProductListDispatchProps => ({actions: bindActionCreators(actions, dispatch)})

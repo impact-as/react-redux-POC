@@ -15,7 +15,7 @@ export class AppComponent extends React.Component<IAppComponentProps, IAppCompon
         return (
             <span>
                 {this.state.menuItems.map((menuItem, key) => (
-                    <Link to={menuItem.Url}>{menuItem.Title}</Link>
+                    <Link to={menuItem.Url} key={key}>{menuItem.Title}</Link>
                 ))}
                 {this.props.children}
             </span>

@@ -5,6 +5,7 @@ export default (spots: any[]): JSX.Element => {
         <div className="spots">
             {spots.map((spotData, key) => {
                 var Spot = spotData.type;
+                console.log(Spot);
                 return <Spot data={spotData} />
             })}
         </div>

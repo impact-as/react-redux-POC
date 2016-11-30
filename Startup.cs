@@ -27,7 +27,7 @@ namespace react_redux_POC
             app.UseMvc(routes => 
             {
                 routes.MapRoute("default", "api/{controller}/{action=Index}");
-                routes.MapRoute("spa", "{*route}", new { controller = "Home", action = "Index" });
+                routes.MapSpaFallbackRoute(name: "spa-fallback", defaults: new { controller = "Home", action = "Index" });
             });
         }
     }

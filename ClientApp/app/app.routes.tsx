@@ -1,3 +1,4 @@
+import * as React from 'react';
 import { RouteProps } from 'react-router';
 
 declare function require(name: string);
@@ -9,7 +10,9 @@ const appRoutes: RouteProps = {
             .then(response => response.json())
             .then(data => {
                 data = Object.assign({}, data, {template: data.template.replace('-s', 'S')});
-                cb(null, require('../layouts/')[data.template]);
+                const LayoutComponent: any = require('../layouts/')[data.template];
+                
+                cb(null, props => <LayoutComponent {...props} title={data.title} spots={data.spots} />);
             });
     }
 }

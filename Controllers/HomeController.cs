@@ -23,8 +23,8 @@ namespace ReactPoc.Controllers
             {
                 var menuItems = new [] {
                     MenuItem.CreateItem("Home", "/"),
-                    MenuItem.CreateItem("Products", "/products"),
-                    MenuItem.CreateItem("Basket", "/checkout")
+                    MenuItem.CreateItem("Subpage", "/subpage"),
+                    MenuItem.CreateItem("Filter", "/filter")
                 };
                 return menuItems.ToList();
             }

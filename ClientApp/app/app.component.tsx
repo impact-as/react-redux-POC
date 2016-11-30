@@ -20,8 +20,10 @@ export class AppComponent extends React.Component<IAppComponentProps, IAppCompon
                 {this.state.menuItems.map((menuItem, key) => (
                     <Link to={menuItem.Url} key={key}>{menuItem.Title}</Link>
                 ))}
-                {this.props.children}
 
+                <div>
+                    {this.props.children}
+                </div>
 
                 <TextSpot text="<h1>Content</h1><p>Content from the CMS</p>" />
 

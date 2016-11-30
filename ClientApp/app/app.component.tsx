@@ -2,7 +2,7 @@ import * as React from "react";
 import { Link } from 'react-router';
 
 import { TextSpot } from '../components/text.spot.component';
-import { ImageSpot } from '../components/image.spot.component';
+import { GallerySpot } from '../components/gallery.spot.component';
 
 interface IAppComponentProps {};
 interface IAppComponentState {
@@ -24,10 +24,6 @@ export class AppComponent extends React.Component<IAppComponentProps, IAppCompon
                 <div>
                     {this.props.children}
                 </div>
-
-                <TextSpot text="<h1>Content</h1><p>Content from the CMS</p>" />
-
-                <ImageSpot src="http://lorempixel.com/400/200/sports/1/" />
             </span>
         );
     }

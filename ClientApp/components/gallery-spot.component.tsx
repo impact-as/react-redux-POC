@@ -1,9 +1,9 @@
 import * as React from "react";
 
-interface IImageSpotProps { src:string }
+interface IImageSpotProps { data:any }
 interface IImageSpotState {  }
 
-export class ImageSpot extends React.Component<IImageSpotProps, {}> {
+class GallerySpot extends React.Component<IImageSpotProps, {}> {
     state: IImageSpotState;
     constructor() {
         super();
@@ -13,8 +13,10 @@ export class ImageSpot extends React.Component<IImageSpotProps, {}> {
     render() {
         return (
             <div>
-                <img src={this.props.src} />
+                {this.props.data.images.map((image, key) => <img src={image} />)}
             </div>
         );
     }
 }
+
+export default GallerySpot;

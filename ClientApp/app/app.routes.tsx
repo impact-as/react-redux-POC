@@ -8,11 +8,11 @@ const appRoutes: RouteProps = {
     getComponent: (nextState, cb) => {
         fetch(resolveRoute(nextState.location.pathname))
             .then(response => response.json())
-            .then(data => {
-                data = Object.assign({}, data, {template: data.template.replace('-s', 'S')});
-                const LayoutComponent: any = require('../layouts/')[data.template];
-                
-                cb(null, props => <LayoutComponent {...props} title={data.title} spots={data.spots} />);
+            .then(json => {
+                json = Object.assign({}, json, {template: json.template.replace('-s', 'S')});
+                const LayoutComponent: any = require('../layouts/')[json.template];
+
+                cb(null, props => <LayoutComponent {...props} title={json.title} renderData={json.data} />);
             });
     }
 }

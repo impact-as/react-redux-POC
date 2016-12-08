@@ -1,22 +1,24 @@
 import { ActionCreatorsMapObject, Action } from 'redux';
 
+import { productActionTypes, IProduct } from '../product/';
+
 declare var fetch: (url: string, options?: {}) => any;
 
-const actionTypes = {
+const actionTypes = Object.assign({
     REQUEST_PRODUCTS: 'REQUEST_PRODUCTS',
     RECEIVE_PRODUCTS: 'RECEIVE_PRODUCTS'
-}
+}, productActionTypes);
 
-interface IProductAction extends Action {
-    payload?: any[]
+interface IProductListAction extends Action {
+    payload?: IProduct[] | any;
 }
 
 export interface IProductListActionsMapObject extends ActionCreatorsMapObject {
     fetchProducts: () => void;
 }
 
-const requestProducts = (): IProductAction => ({type: actionTypes.REQUEST_PRODUCTS});
-const receiveProducts = (products): IProductAction => ({type: actionTypes.RECEIVE_PRODUCTS, payload: products});
+const requestProducts = (): IProductListAction => ({type: actionTypes.REQUEST_PRODUCTS});
+const receiveProducts = (products): IProductListAction => ({type: actionTypes.RECEIVE_PRODUCTS, payload: products});
 
 const fetchProducts = () => (dispatch) => {
     dispatch(requestProducts);
@@ -29,12 +31,19 @@ export const actions: IProductListActionsMapObject = {
     fetchProducts
 }
 
-export const productListReducer = (state = {products: []}, action: IProductAction) => {
+export const productListReducer = (state = {products: []}, action: IProductListAction) => {
     switch(action.type) {
         case actionTypes.REQUEST_PRODUCTS:
             return Object.assign({}, state, {fetching: true});
         case actionTypes.RECEIVE_PRODUCTS:
             return Object.assign({}, state, {fetching: false, products: action.payload});
+
+        case actionTypes.TOGGLE_FAVOURITE:
+            return Object.assign({}, state, {products: state.products.map((product: IProduct) =>
+                action.payload === product.id
+                    ? Object.assign({}, product, {isFavourite: !product.isFavourite})
+                    : product
+                )});
         default:
             return state;
     }

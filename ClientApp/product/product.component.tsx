@@ -2,14 +2,16 @@ import * as React from "react";
 import { connect } from "react-redux";
 import { bindActionCreators } from 'redux';
 
-import { actions } from './product.redux';
+import { actions, IProductActionsMapObject } from './product.redux';
 import { IProduct } from './product';
 
 interface IProductProps {
     product: IProduct
 };
 
-interface IProductDispatchProps {};
+interface IProductDispatchProps {
+    actions?: IProductActionsMapObject;
+};
 
 interface IProductState {};
 
@@ -17,7 +19,12 @@ class StatelessProduct extends React.Component<IProductDispatchProps & IProductP
     public render(): JSX.Element {
         return (
             <div className="product">
-                {this.props.product.name}
+                <span 
+                    onClick={() => this.props.actions.toggleFavourite(this.props.product.id)}
+                    style={{color: this.props.product.isfavorite ? "green" : "black"}}
+                >
+                    {this.props.product.name}
+                </span>
             </div>
         );
     }

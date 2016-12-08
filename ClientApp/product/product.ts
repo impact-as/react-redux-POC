@@ -8,7 +8,7 @@
 
 export interface IProduct {
     name: string;
-    isFavourite: boolean;
+    isfavorite: boolean;
     price: number;
     availability: boolean;
     id: number;

@@ -33,15 +33,17 @@ export const actions: IProductListActionsMapObject = {
 
 export const productListReducer = (state = {products: []}, action: IProductListAction) => {
     switch(action.type) {
+        //Product list
         case actionTypes.REQUEST_PRODUCTS:
             return Object.assign({}, state, {fetching: true});
         case actionTypes.RECEIVE_PRODUCTS:
             return Object.assign({}, state, {fetching: false, products: action.payload});
-
+        
+        //Product
         case actionTypes.TOGGLE_FAVOURITE:
             return Object.assign({}, state, {products: state.products.map((product: IProduct) =>
                 action.payload === product.id
-                    ? Object.assign({}, product, {isFavourite: !product.isFavourite})
+                    ? Object.assign({}, product, {isfavorite: !product.isfavorite})
                     : product
                 )});
         default:

@@ -16,8 +16,6 @@ export class FrontpageComponent extends React.Component<IFrontpageComponentProps
         return (
             <div className="layout layout--frontpage">
                 {renderPartials(this.props.renderData.spots)}
-
-                <ProductList />
             </div>
         );
     }

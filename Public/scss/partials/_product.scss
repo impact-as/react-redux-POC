@@ -23,3 +23,7 @@
         }
     }
 }
+
+.product-list {
+    @include outer-container;
+}

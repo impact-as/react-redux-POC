@@ -4,13 +4,17 @@
     height: 200px;
 }
 
+.product--out-of-stock {
+    opacity: 0.5;
+}
+
 .toggle-favourite {
     background-color: lightgrey;
 
     &:hover {
         background-color: green;
     }
-    
+
     &.favourite {
         background-color: green;
 

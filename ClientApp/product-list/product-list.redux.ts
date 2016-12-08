@@ -20,7 +20,7 @@ const receiveProducts = (products): IProductAction => ({type: actionTypes.RECEIV
 
 const fetchProducts = () => (dispatch) => {
     dispatch(requestProducts);
-    fetch('/api/products', {method: 'get'})
+    fetch('http://www.json-generator.com/api/json/get/celLKmqymq', {method: 'get'})
         .then(response => response.json())
         .then(products => dispatch(receiveProducts(products)));
 };

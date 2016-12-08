@@ -12,7 +12,7 @@ interface ISubpageComponentState {};
 export class SubpageComponent extends React.Component<ISubpageComponentProps, ISubpageComponentState> {
     public render(): JSX.Element {
         return (
-            <div>
+            <div className="layout layout--subpage">
                 {renderPartials(this.props.renderData.spots)}
             </div>
         );

@@ -12,7 +12,7 @@ interface ISubpageSidebarComponentState {};
 export class SubpageSidebarComponent extends React.Component<ISubpageSidebarComponentProps, ISubpageSidebarComponentState> {
     public render(): JSX.Element {
         return (
-            <div>
+            <div className="layout layout--subpage-sidebar">
                 <h1>{this.props.renderData.header}</h1>
                 <div style={{float: 'left', width: '40%'}}>
                     <h3>Sidebar</h3>

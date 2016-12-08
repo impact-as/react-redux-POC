@@ -2,7 +2,9 @@ import * as React from "react";
 import { connect } from "react-redux";
 import { bindActionCreators } from 'redux';
 
-import { actions, IProductActionsMapObject } from './product-list.redux';
+import { actions, IProductListActionsMapObject } from './product-list.redux';
+
+import { Product } from '../product/';
 
 interface IProductListStateProps {
     fetching?: boolean;
@@ -10,7 +12,7 @@ interface IProductListStateProps {
 };
 
 interface IProductListDispatchProps {
-    actions?: IProductActionsMapObject
+    actions?: IProductListActionsMapObject
 }
 
 interface IProductListState {};
@@ -22,8 +24,9 @@ export class StatelessProductList extends React.Component<IProductListStateProps
 
     render(): JSX.Element {
         return (
-            <div>
-                {this.props.products.map((product, key) => <div key={key} className="product">{product.name}</div>) }
+            <div className="product-list">
+                <h2>Products</h2>
+                {this.props.products.map((product, key) => <Product key={key} />) }
             </div>
         );
     }

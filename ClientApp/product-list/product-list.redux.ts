@@ -11,7 +11,7 @@ interface IProductAction extends Action {
     payload?: any[]
 }
 
-export interface IProductActionsMapObject extends ActionCreatorsMapObject {
+export interface IProductListActionsMapObject extends ActionCreatorsMapObject {
     fetchProducts: () => void;
 }
 
@@ -25,7 +25,7 @@ const fetchProducts = () => (dispatch) => {
         .then(products => dispatch(receiveProducts(products)));
 };
 
-export const actions: IProductActionsMapObject = {
+export const actions: IProductListActionsMapObject = {
     fetchProducts
 }
 

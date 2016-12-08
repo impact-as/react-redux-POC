@@ -6,7 +6,7 @@ export default (spots: any[]): JSX.Element => {
     return (
         <div className="spots">
             {spots.map((spotData, key) => {
-                var Spot = require('../components/' + spotData.type + '-spot.component').default;
+                var Spot = require('../spots/' + spotData.type + '-spot.component').default;
                 
                 return <Spot data={spotData} key={key} />
             })}

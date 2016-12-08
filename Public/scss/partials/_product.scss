@@ -1,7 +1,7 @@
 .product {
-    float: left;
-    width: 300px;
-    height: 200px;
+    @include span-columns(3);
+    @include omega();
+    height: 100px;
 }
 
 .product--out-of-stock {

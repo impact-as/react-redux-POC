@@ -4,6 +4,9 @@
   "description": "",
   "main": "webpack.config.js",
   "dependencies": {
+    "node-bourbon": "^4.2.8",
+    "node-neat": "^1.7.2",
+    "normalize.scss": "^0.1.0",
     "preact": "^6.4.0",
     "preact-compat": "^3.9.2",
     "react": "^15.3.1",

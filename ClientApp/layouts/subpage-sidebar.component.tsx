@@ -14,12 +14,12 @@ export class SubpageSidebarComponent extends React.Component<ISubpageSidebarComp
         return (
             <div className="layout layout--subpage-sidebar">
                 <h1>{this.props.renderData.header}</h1>
-                <div style={{float: 'left', width: '40%'}}>
+                <div className="layout__sidebar">
                     <h3>Sidebar</h3>
                     {renderPartials(this.props.renderData.sidebarSpots)}
                 </div>
                 
-                <div style={{float: 'left', width: '60%'}}>
+                <div className="layout__main">
                     <h3>Content</h3>
                     {renderPartials(this.props.renderData.spots)}
                 </div>

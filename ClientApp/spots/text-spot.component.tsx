@@ -16,9 +16,9 @@ class TextSpot extends React.Component<ITextSpotProps, {}> {
 
     render() {
         return (
-            <div>
+            <section className="spot spot--text">
                 <div dangerouslySetInnerHTML={{__html: this.props.data.content}} />
-            </div>
+            </section>
         );
     }
 }

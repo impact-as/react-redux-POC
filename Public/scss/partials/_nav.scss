@@ -1,0 +1,16 @@
+.main-menu {
+
+}
+
+.main-menu__item {
+    padding: 15px 30px;
+    display: inline-block;
+
+    &:first-of-type {
+        padding-left: 0;
+    }
+
+    &:last-of-type {
+        padding-right: 0;
+    }
+}

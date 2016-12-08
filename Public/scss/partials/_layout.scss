@@ -1,0 +1,19 @@
+.layout {
+    @include outer-container;
+
+    padding: 15px;
+    border: 1px solid dodgerblue;
+}
+
+.layout--subpage-sidebar {
+    .layout__sidebar {
+        @include span-columns(4);
+    }
+}
+
+.layout__main {
+    .layout--subpage-sidebar & {
+        @include span-columns(8);
+        @include omega();
+    }
+}

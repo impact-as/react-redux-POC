@@ -1,0 +1,23 @@
+.spot {
+    padding: 15px;
+    border: 1px dashed dodgerblue;
+}
+
+.spot--gallery {
+
+    img {
+        width: 20%;
+    }
+
+    .layout__sidebar & {
+        img {
+            width: 33%;
+        }
+    }
+}
+
+.spot--text {
+    .layout__sidebar & {
+        text-align: center;
+    }
+}

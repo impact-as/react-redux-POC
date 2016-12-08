@@ -28,10 +28,10 @@ export class StatelessProductList extends React.Component<IProductListStateProps
 
     render(): JSX.Element {
         return (
-            <div className="product-list">
+            <section className="product-list">
                 <h2>Products</h2>
                 {this.props.products.map((product, key) => <Product key={key} product={product} />) }
-            </div>
+            </section>
         );
     }
 }

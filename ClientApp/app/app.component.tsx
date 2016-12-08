@@ -13,15 +13,22 @@ export class AppComponent extends React.Component<IAppComponentProps, IAppCompon
 
     render(): JSX.Element {
         return (
-            <span>
-                {this.state.menuItems.map((menuItem, key) => (
-                    <Link to={menuItem.Url} key={key}>{menuItem.Title}</Link>
-                ))}
+            <div className="site">
+                <header className="site__header">
+                    <div className="container">
+                        <nav className="main-menu">
+                            {this.state.menuItems.map((menuItem, key) => (
+                                <Link className="main-menu__item" to={menuItem.Url} key={key}>{menuItem.Title}</Link>
+                            ))}
+                        </nav>
+                        <div className="basket"></div>
+                    </div>
+                </header>
 
-                <div>
+                <div className="site__content">
                     {this.props.children}
                 </div>
-            </span>
+            </div>
         );
     }
 }

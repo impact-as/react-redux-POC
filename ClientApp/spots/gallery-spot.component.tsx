@@ -12,9 +12,9 @@ class GallerySpot extends React.Component<IImageSpotProps, {}> {
 
     render() {
         return (
-            <div>
-                {this.props.data.images.map((image, key) => <img src={image} />)}
-            </div>
+            <section className="spot spot--gallery">
+                {this.props.data.images.map((image, key) => <img src={image} key={key} />)}
+            </section>
         );
     }
 }

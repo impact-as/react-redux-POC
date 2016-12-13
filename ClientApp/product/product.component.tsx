@@ -19,7 +19,9 @@ interface IProductState {};
 class StatelessProduct extends React.Component<IProductDispatchProps & IProductProps, IProductState> {
     public render(): JSX.Element {
         return (
-            <div className={'product' + (this.props.product.availability ? '' : ' product--out-of-stock')}>
+            <div className={'product' + (this.props.product.availability ? '' : ' product--out-of-stock')}
+                style={{backgroundImage: `url(${this.props.product.image})`}}
+            >
                 <Favourite 
                     toggleFavourite={() => this.props.actions.toggleFavourite(this.props.product.id)}
                     isFavourite={this.props.product.isfavorite}

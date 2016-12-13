@@ -38,14 +38,20 @@ export const productListReducer = (state = {products: []}, action: IProductListA
             return Object.assign({}, state, {fetching: true});
         case actionTypes.RECEIVE_PRODUCTS:
             return Object.assign({}, state, {fetching: false, products: action.payload});
-        
-        //Product
         case actionTypes.TOGGLE_FAVOURITE:
-            return Object.assign({}, state, {products: state.products.map((product: IProduct) =>
-                action.payload === product.id
-                    ? Object.assign({}, product, {isfavorite: !product.isfavorite})
-                    : product
-                )});
+            return Object.assign({}, state, {products: productsReducer(state.products, action)});
+        default:
+            return state;
+    }
+}
+
+const productsReducer = (state = [], action: IProductListAction) => {
+    switch(action.type) {
+        case actionTypes.TOGGLE_FAVOURITE:
+            return state.map((product: IProduct) => action.payload === product.id
+                ? Object.assign({}, product, {isfavorite: !product.isfavorite})
+                : product
+            );
         default:
             return state;
     }

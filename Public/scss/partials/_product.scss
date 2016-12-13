@@ -1,7 +1,10 @@
 .product {
-    @include span-columns(3);
-    @include omega();
-    height: 100px;
+    @include span-columns(4);
+    @include omega;
+    height: 150px;
+
+    background-color: lightgrey;
+    background-size: cover;
 }
 
 .product--out-of-stock {

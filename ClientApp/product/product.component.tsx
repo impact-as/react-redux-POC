@@ -27,7 +27,6 @@ class StatelessProduct extends React.Component<IProductDispatchProps & IProductP
                     toggleFavourite={() => this.props.actions.toggleFavourite(this.props.product.id)}
                     isFavourite={this.props.product.isfavorite}
                 >Favourite</Favourite>
-
             </div>
         );
     }

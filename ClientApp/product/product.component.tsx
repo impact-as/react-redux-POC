@@ -22,13 +22,12 @@ class StatelessProduct extends React.Component<IProductDispatchProps & IProductP
             <div className={'product' + (this.props.product.availability ? '' : ' product--out-of-stock')}
                 style={{backgroundImage: `url(${this.props.product.image})`}}
             >
+                <div className="product__title">{this.props.product.name}</div>
                 <Favourite 
                     toggleFavourite={() => this.props.actions.toggleFavourite(this.props.product.id)}
                     isFavourite={this.props.product.isfavorite}
-                >
-                    Favourite
-                </Favourite>
-                <span>{this.props.product.name}</span>
+                >Favourite</Favourite>
+
             </div>
         );
     }

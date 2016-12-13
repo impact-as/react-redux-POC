@@ -1,5 +1,5 @@
 .product {
-    @include span-columns(4);
+    @include span-columns(3);
     @include omega;
     height: 150px;
 
@@ -9,6 +9,13 @@
 
 .product--out-of-stock {
     opacity: 0.5;
+}
+
+.product__title {
+    background-color: rgba(0, 0, 0, 0.3);
+    text-align: center;
+    padding: 10px;
+    color: white;
 }
 
 .toggle-favourite {

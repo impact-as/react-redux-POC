@@ -1,6 +1,6 @@
 import { ActionCreatorsMapObject, Action } from 'redux';
 
-import { productActionTypes, IProduct } from '../product/';
+import { productActionTypes, IProduct, productReducer } from '../product/';
 
 declare var fetch: (url: string, options?: {}) => any;
 
@@ -33,7 +33,6 @@ export const actions: IProductListActionsMapObject = {
 
 export const productListReducer = (state = {products: []}, action: IProductListAction) => {
     switch(action.type) {
-        //Product list
         case actionTypes.REQUEST_PRODUCTS:
             return Object.assign({}, state, {fetching: true});
         case actionTypes.RECEIVE_PRODUCTS:
@@ -45,11 +44,11 @@ export const productListReducer = (state = {products: []}, action: IProductListA
     }
 }
 
-const productsReducer = (state = [], action: IProductListAction) => {
+const productsReducer = (state: IProduct[], action: IProductListAction) => {
     switch(action.type) {
         case actionTypes.TOGGLE_FAVOURITE:
             return state.map((product: IProduct) => action.payload === product.id
-                ? Object.assign({}, product, {isfavorite: !product.isfavorite})
+                ? productReducer(product, action)
                 : product
             );
         default:

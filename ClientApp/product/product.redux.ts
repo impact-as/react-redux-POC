@@ -1,5 +1,7 @@
 import { ActionCreatorsMapObject, Action } from 'redux';
 
+import { IProduct } from './product';
+
 export const actionTypes = {
     ADD_TO_BASKET: 'ADD_TO_BASKET',
     REMOVE_FROM_BASKET: 'REMOVE_FROM_BASKET',
@@ -19,4 +21,13 @@ export const actions: IProductActionsMapObject = {
     toggleFavourite: (id: number) => ({type: actionTypes.TOGGLE_FAVOURITE, payload: id}),
     addToBasket: updateBasket(actionTypes.ADD_TO_BASKET),
     removeFromBasket: updateBasket(actionTypes.REMOVE_FROM_BASKET)
+}
+
+export const productReducer = (state: IProduct, action: Action) => {
+    switch(action.type) {
+        case actionTypes.TOGGLE_FAVOURITE:
+            return Object.assign({}, state, {isfavorite: !state.isfavorite});
+        default:
+            return state;
+    }
 }

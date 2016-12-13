@@ -28,26 +28,24 @@ export const actions: IBasketActionsMapObject = {
 
 export const basketReducer = (state: IBasketProduct[] = [], action: IBasketAction) => {
     switch(action.type) {
-        case actionTypes.ADD_TO_BASKET:
         case actionTypes.REMOVE_FROM_BASKET:
-            var productHandled = false;
-            
-            //Update count of already existing products. Track if action was handled.
-            state = state.map((product: IBasketProduct) => {
+            let removeIndex = null;
+
+            state = state.map((product: IBasketProduct, index) => {
                 if (product.id === action.payload.id) {
-                    productHandled = true;
+                    removeIndex = product.count === 1 ? index : null;
                     return basketProductReducer(product, action);
                 }
-                
                 return product;
             });
 
-            //Remove products with count = 0.
-            state = state.filter((product: IBasketProduct) => product.count === 0);
+            return removeIndex === null ? state : [...state.slice(0, removeIndex), ...state.slice(removeIndex + 1)];
+        case actionTypes.ADD_TO_BASKET:
+            const nextState = state.map((product: IBasketProduct, index) => product.id === action.payload.id
+                ? basketProductReducer(product, action)
+                : product);
 
-            //Add product to basket if it wasn't already updated.
-            return productHandled ? state : [...state, action.payload];
-
+            return state === nextState ? nextState : [...nextState, action.payload];
         default:
             return state;
     }

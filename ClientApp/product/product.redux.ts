@@ -26,6 +26,7 @@ export const productReducer = (state: IProduct, action: Action) => {
     switch(action.type) {
         case actionTypes.TOGGLE_FAVOURITE:
             return Object.assign({}, state, {isfavorite: !state.isfavorite});
+        
         default:
             return state;
     }

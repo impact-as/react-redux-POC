@@ -42,10 +42,13 @@ export const productListReducer = (state: IProductListState = {products: []} as 
     switch(action.type) {
         case actionTypes.REQUEST_PRODUCTS:
             return Object.assign({}, state, {fetching: true});
+        
         case actionTypes.RECEIVE_PRODUCTS:
             return Object.assign({}, state, {fetching: false, products: action.payload});
+        
         case actionTypes.TOGGLE_FAVOURITE:
             return Object.assign({}, state, {products: productsReducer(state.products, action)});
+        
         default:
             return state;
     }
@@ -58,6 +61,7 @@ const productsReducer = (state: IProduct[], action: IProductListAction) => {
                 ? productReducer(product, action)
                 : product
             );
+        
         default:
             return state;
     }

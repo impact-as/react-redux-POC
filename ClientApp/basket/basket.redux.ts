@@ -42,6 +42,7 @@ export const basketReducer = (state: IBasketState = {products: []} as IBasketSta
                                   .reduce((total, productPrice) => total + productPrice);
 
             return Object.assign({}, state, {total, products});
+        
         default:
             return state;
     }
@@ -53,7 +54,7 @@ const basketProductsReducer = (state: IBasketProduct[], action: IBasketAction) =
             let removeIndex = null;
 
             state = state.map((product: IBasketProduct, index) => {
-                if (product.id === action.payload.id) {
+                if (product.id === action.payload) {
                     removeIndex = product.count === 1 ? index : null;
                     return basketProductReducer(product, action);
                 }
@@ -61,12 +62,20 @@ const basketProductsReducer = (state: IBasketProduct[], action: IBasketAction) =
             });
 
             return removeIndex === null ? state : [...state.slice(0, removeIndex), ...state.slice(removeIndex + 1)];
+        
         case actionTypes.ADD_TO_BASKET:
-            const nextState = state.map((product: IBasketProduct, index) => product.id === action.payload.id
-                ? basketProductReducer(product, action)
-                : product);
+            let productIncremented = false;
 
-            return state === nextState ? nextState : [...nextState, action.payload];
+            state = state.map((product: IBasketProduct, index) => {
+                if (product.id === action.payload.id) {
+                    productIncremented = true;
+                    return basketProductReducer(product, action);
+                }
+                return product;
+            });
+
+            return productIncremented ? state : [...state, Object.assign({}, action.payload, {count: 1})];
+        
         default:
             return state;
     }
@@ -75,9 +84,11 @@ const basketProductsReducer = (state: IBasketProduct[], action: IBasketAction) =
 const basketProductReducer = (state: IBasketProduct, action: IBasketAction) => {
     switch(action.type) {
         case actionTypes.ADD_TO_BASKET:
-            return Object.assign({}, state, {count: state.count + 1}) 
+            return Object.assign({}, state, {count: state.count + 1})
+        
         case actionTypes.REMOVE_FROM_BASKET:
             return Object.assign({}, state, {count: state.count - 1})
+        
         default:
             return state;
     }

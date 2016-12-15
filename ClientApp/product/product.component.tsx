@@ -20,12 +20,10 @@ class StatelessProduct extends React.Component<IProductDispatchProps & IProductP
     public render(): JSX.Element {
         return (
             <div className={'product' + (this.props.product.availability ? '' : ' product--out-of-stock')}
-                style={{backgroundImage: `url(${this.props.product.image})`}}
-            >
+                 style={{backgroundImage: `url(${this.props.product.image})`}}>
                 <div className="product__title">{this.props.product.name}</div>
-                <Favourite 
-                    toggleFavourite={() => this.props.actions.toggleFavourite(this.props.product.id)}
-                    isFavourite={this.props.product.isfavorite}
+                <Favourite toggleFavourite={() => this.props.actions.toggleFavourite(this.props.product.id)}
+                           isFavourite={this.props.product.isfavorite}
                 >Favourite</Favourite>
                 <button onClick={() => this.props.actions.addToBasket(this.props.product)}>BUY!</button>
             </div>

@@ -2,22 +2,20 @@ import * as React from "react";
 import { connect } from "react-redux";
 import { bindActionCreators } from 'redux';
 
-import { actions, IProductListActionsMapObject } from './product-list.redux';
-
 import { Product } from '../product/';
+import { IApplicationState }from '../main.redux';
 
-interface IProductListStateProps {
-    fetching?: boolean;
-    products?: any[];  
-};
+import { actions, IProductListActionsMapObject, IProductListState } from './product-list.redux';
+
+interface IProductListStateProps extends IProductListState {}
 
 interface IProductListDispatchProps {
-    actions?: IProductListActionsMapObject
+    actions: IProductListActionsMapObject
 }
 
-interface IProductListState {};
+interface IProductListProps {}
 
-export class StatelessProductList extends React.Component<IProductListStateProps & IProductListDispatchProps, IProductListState> {
+export class StatelessProductList extends React.Component<IProductListStateProps & IProductListDispatchProps & IProductListProps, void> {
     componentWillMount() {
         this.props.actions.fetchProducts();
     }
@@ -36,7 +34,7 @@ export class StatelessProductList extends React.Component<IProductListStateProps
     }
 }
 
-export const ProductList = connect<IProductListStateProps, IProductListDispatchProps, IProductListState>(
-    (state): IProductListStateProps => ({products: state.productList.products, fetching: state.productList.fetching}),
+export const ProductList = connect<IProductListStateProps, IProductListDispatchProps, IProductListProps>(
+    (state: IApplicationState): IProductListStateProps => (state.productList),
     (dispatch): IProductListDispatchProps => ({actions: bindActionCreators(actions, dispatch)})
 )(StatelessProductList);

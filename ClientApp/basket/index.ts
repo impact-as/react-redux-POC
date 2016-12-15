@@ -1,2 +1,2 @@
 export { Basket } from './basket.component';
-export { actions as basketActions, basketReducer } from './basket.redux';
+export { actions as basketActions, basketReducer, IBasketState } from './basket.redux';

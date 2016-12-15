@@ -1,2 +1,2 @@
 export { ProductList } from './product-list.component';
-export { productListReducer } from './product-list.redux';
+export { productListReducer, IProductListState } from './product-list.redux';

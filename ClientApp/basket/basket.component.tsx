@@ -2,19 +2,18 @@ import * as React from "react";
 import { connect } from "react-redux";
 import { bindActionCreators } from 'redux';
 
+import { IApplicationState }from '../main.redux';
+
 import { actions, IBasketActionsMapObject, IBasketState } from './basket.redux';
 import { IBasketProduct } from './basket-product';
 
-interface IBasketStateProps {
-    total: number;
-    products: IBasketProduct[];
-};
+interface IBasketStateProps extends IBasketState {}
 
 interface IBasketDispatchProps {
-    actions?: IBasketActionsMapObject;
-};
+    actions: IBasketActionsMapObject;
+}
 
-interface IBasketProps {};
+interface IBasketProps {}
 
 class StatelessBasket extends React.Component<IBasketStateProps & IBasketDispatchProps & IBasketProps, void> {
     public render(): JSX.Element {
@@ -27,6 +26,6 @@ class StatelessBasket extends React.Component<IBasketStateProps & IBasketDispatc
 }
 
 export const Basket =  connect<IBasketStateProps, IBasketDispatchProps, IBasketProps>(
-    (state): IBasketStateProps => (state.basket),
+    (state: IApplicationState): IBasketStateProps => (state.basket),
     (dispatch): IBasketDispatchProps => ({actions: bindActionCreators(actions, dispatch)})
 )(StatelessBasket);

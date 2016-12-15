@@ -4,6 +4,7 @@ import { productActionTypes, IProduct, productReducer } from '../product/';
 
 declare var fetch: (url: string, options?: {}) => any;
 
+//Actions
 const actionTypes = Object.assign({
     REQUEST_PRODUCTS: 'REQUEST_PRODUCTS',
     RECEIVE_PRODUCTS: 'RECEIVE_PRODUCTS'
@@ -31,7 +32,13 @@ export const actions: IProductListActionsMapObject = {
     fetchProducts
 }
 
-export const productListReducer = (state = {products: []}, action: IProductListAction) => {
+//State
+export interface IProductListState {
+    fetching: boolean;
+    products: IProduct[];
+}
+
+export const productListReducer = (state: IProductListState = {products: []} as IProductListState, action: IProductListAction) => {
     switch(action.type) {
         case actionTypes.REQUEST_PRODUCTS:
             return Object.assign({}, state, {fetching: true});

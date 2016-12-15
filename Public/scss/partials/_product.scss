@@ -1,10 +1,14 @@
 .product {
     @include span-columns(3);
-    @include omega;
-    height: 150px;
 
+    height: 150px;
     background-color: lightgrey;
     background-size: cover;
+    margin-bottom: 15px;
+
+    &:nth-of-type(4n+4) {
+        @include omega;
+    }
 }
 
 .product--out-of-stock {

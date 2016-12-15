@@ -1,6 +1,8 @@
 import * as React from "react";
 import { Link } from 'react-router';
 
+import { Basket } from '../basket/';
+
 interface IAppComponentProps {};
 interface IAppComponentState {
     menuItems: any[];
@@ -21,7 +23,7 @@ export class AppComponent extends React.Component<IAppComponentProps, IAppCompon
                                 <Link className="main-menu__item" to={menuItem.Url} key={key}>{menuItem.Title}</Link>
                             ))}
                         </nav>
-                        <div className="basket"></div>
+                        <Basket />
                     </div>
                 </header>
 

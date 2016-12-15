@@ -4,6 +4,7 @@ import { IProduct } from '../product/';
 
 import { IBasketProduct } from './basket-product';
 
+//Actions
 export const actionTypes = {
     ADD_TO_BASKET: 'ADD_TO_BASKET',
     REMOVE_FROM_BASKET: 'REMOVE_FROM_BASKET',
@@ -26,7 +27,27 @@ export const actions: IBasketActionsMapObject = {
     removeFromBasket: updateBasket(actionTypes.REMOVE_FROM_BASKET)
 }
 
-export const basketReducer = (state: IBasketProduct[] = [], action: IBasketAction) => {
+//State
+export interface IBasketState {
+    total: number;
+    products: IBasketProduct[];
+}
+
+export const basketReducer = (state: IBasketState = {products: []} as IBasketState, action: IBasketAction) => {
+    switch(action.type) {
+        case actionTypes.REMOVE_FROM_BASKET:
+        case actionTypes.ADD_TO_BASKET:
+            const products = basketProductsReducer(state.products, action);
+            const total = products.map((product: IBasketProduct): number => product.price)
+                                  .reduce((total, productPrice) => total + productPrice);
+
+            return Object.assign({}, state, {total, products});
+        default:
+            return state;
+    }
+}
+
+const basketProductsReducer = (state: IBasketProduct[], action: IBasketAction) => {
     switch(action.type) {
         case actionTypes.REMOVE_FROM_BASKET:
             let removeIndex = null;

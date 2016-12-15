@@ -2,7 +2,7 @@ import * as React from "react";
 import { connect } from "react-redux";
 import { bindActionCreators } from 'redux';
 
-import { Product } from '../product/';
+import { Product, productActions, IProductActionsMapObject } from '../product/';
 import { IApplicationState }from '../main.redux';
 
 import { actions, IProductListActionsMapObject, IProductListState } from './product-list.redux';
@@ -10,7 +10,8 @@ import { actions, IProductListActionsMapObject, IProductListState } from './prod
 interface IProductListStateProps extends IProductListState {}
 
 interface IProductListDispatchProps {
-    actions: IProductListActionsMapObject
+    actions: IProductListActionsMapObject;
+    productActions: IProductActionsMapObject;
 }
 
 interface IProductListProps {}
@@ -28,7 +29,7 @@ export class StatelessProductList extends React.Component<IProductListStateProps
         return (
             <section className="product-list">
                 <h2>Products</h2>
-                {this.props.products.map((product, key) => <Product key={key} product={product} />) }
+                {this.props.products.map((product, key) => <Product key={key} product={product} actions={this.props.productActions} />) }
             </section>
         );
     }
@@ -36,5 +37,8 @@ export class StatelessProductList extends React.Component<IProductListStateProps
 
 export const ProductList = connect<IProductListStateProps, IProductListDispatchProps, IProductListProps>(
     (state: IApplicationState): IProductListStateProps => (state.productList),
-    (dispatch): IProductListDispatchProps => ({actions: bindActionCreators(actions, dispatch)})
+    (dispatch): IProductListDispatchProps => ({
+        actions: bindActionCreators(actions, dispatch), 
+        productActions: bindActionCreators(productActions, dispatch)
+    })
 )(StatelessProductList);

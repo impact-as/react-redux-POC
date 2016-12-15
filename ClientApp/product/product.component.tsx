@@ -12,12 +12,12 @@ interface IProductProps {
 };
 
 interface IProductDispatchProps {
-    actions?: IProductActionsMapObject;
+    actions: IProductActionsMapObject;
 };
 
 interface IProductState {};
 
-class StatelessProduct extends React.Component<IProductDispatchProps & IProductProps, IProductState> {
+export class Product extends React.Component<IProductDispatchProps & IProductProps, IProductState> {
     public render(): JSX.Element {
         return (
             <div className={'product' + (this.props.product.availability ? '' : ' product--out-of-stock')}
@@ -37,8 +37,3 @@ class StatelessProduct extends React.Component<IProductDispatchProps & IProductP
         );
     }
 }
-
-export const Product = connect<any, IProductDispatchProps, IProductProps>(
-    null,
-    (dispatch): IProductDispatchProps => ({actions: bindActionCreators(actions, dispatch)})
-)(StatelessProduct);

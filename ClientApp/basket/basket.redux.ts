@@ -38,8 +38,8 @@ export const basketReducer = (state: IBasketState = {products: []} as IBasketSta
         case actionTypes.REMOVE_FROM_BASKET:
         case actionTypes.ADD_TO_BASKET:
             const products = basketProductsReducer(state.products, action);
-            const total = products.map((product: IBasketProduct): number => product.price)
-                                  .reduce((total, productPrice) => total + productPrice);
+            const total = products.map((product: IBasketProduct): number => product.price * product.count)
+                                  .reduce((total, productPrice) => total + productPrice).toFixed(2);
 
             return Object.assign({}, state, {total, products});
         
@@ -74,7 +74,7 @@ const basketProductsReducer = (state: IBasketProduct[], action: IBasketAction) =
                 return product;
             });
 
-            return productIncremented ? state : [...state, Object.assign({}, action.payload, {count: 1})];
+            return productIncremented ? state : [...state, basketProductReducer(action.payload, action)];
         
         default:
             return state;
@@ -84,7 +84,7 @@ const basketProductsReducer = (state: IBasketProduct[], action: IBasketAction) =
 const basketProductReducer = (state: IBasketProduct, action: IBasketAction) => {
     switch(action.type) {
         case actionTypes.ADD_TO_BASKET:
-            return Object.assign({}, state, {count: state.count + 1})
+            return Object.assign({}, state, {count: state.count + 1 || 1})
         
         case actionTypes.REMOVE_FROM_BASKET:
             return Object.assign({}, state, {count: state.count - 1})

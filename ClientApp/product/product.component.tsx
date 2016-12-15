@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { bindActionCreators } from 'redux';
 
 import { Favourite } from './favourite.component';
+import { AddToBasket } from './add-to-basket.component';
 import { actions, IProductActionsMapObject } from './product.redux';
 import { IProduct } from './product';
 
@@ -25,7 +26,13 @@ class StatelessProduct extends React.Component<IProductDispatchProps & IProductP
                 <Favourite toggleFavourite={() => this.props.actions.toggleFavourite(this.props.product.id)}
                            isFavourite={this.props.product.isfavorite}
                 >Favourite</Favourite>
-                <button onClick={() => this.props.actions.addToBasket(this.props.product)}>BUY!</button>
+
+                {(this.props.product.availability
+                    ? <AddToBasket addToBasket={() => this.props.actions.addToBasket(this.props.product)}
+                                   removeFromBasket={() => this.props.actions.removeFromBasket(this.props.product.id)} />    
+                    : null
+                )}
+                
             </div>
         );
     }

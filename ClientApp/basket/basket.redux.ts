@@ -1,8 +1,10 @@
 import { Action, ActionCreatorsMapObject } from 'redux';
 
 import { IProduct } from '../product/';
+import { IMap } from '../utility/';
 
 import { IBasketProduct } from './basket-product';
+import { getItemPriceForProduct } from './basket-utility';
 
 //Actions
 export const actionTypes = {
@@ -11,16 +13,16 @@ export const actionTypes = {
 }
 
 interface IBasketAction extends Action {
-    payload: IProduct & number;
+    payload: string;
 }
 
 export interface IBasketActionsMapObject extends ActionCreatorsMapObject {
-    addToBasket: (product: IProduct) => Action;
-    removeFromBasket: (id: number) => Action;
+    addToBasket: (id: string) => Action;
+    removeFromBasket: (id: string) => Action;
 }
 
-const updateBasket = (type: string): ((payload: number | IProduct) => Action) => 
-    (payload: number | IProduct) => ({type: actionTypes[type], payload})
+const updateBasket = (type: string): ((payload: string) => Action) => 
+    (payload: string) => ({type: actionTypes[type], payload})
 
 export const actions: IBasketActionsMapObject = {
     addToBasket: updateBasket(actionTypes.ADD_TO_BASKET),
@@ -30,16 +32,19 @@ export const actions: IBasketActionsMapObject = {
 //State
 export interface IBasketState {
     total: number;
-    products: IBasketProduct[];
+    products: IMap<IBasketProduct>;
 }
 
-export const basketReducer = (state: IBasketState = {products: []} as IBasketState, action: IBasketAction) => {
+export const basketReducer = (state: IBasketState = {products: {}} as IBasketState, action: IBasketAction): IBasketState => {
     switch(action.type) {
         case actionTypes.REMOVE_FROM_BASKET:
         case actionTypes.ADD_TO_BASKET:
             const products = basketProductsReducer(state.products, action);
-            const total = products.map((product: IBasketProduct): number => product.price * product.count)
-                                  .reduce((total, productPrice) => total + productPrice).toFixed(2);
+            const total = Object.keys(products).reduce((acc: number, currentKey: string): number => {
+                acc += products[currentKey].summarisedPrice;
+                
+                return acc;
+            }, 0).toFixed(2);
 
             return Object.assign({}, state, {total, products});
         
@@ -48,46 +53,41 @@ export const basketReducer = (state: IBasketState = {products: []} as IBasketSta
     }
 }
 
-const basketProductsReducer = (state: IBasketProduct[], action: IBasketAction) => {
+const basketProductsReducer = (state: IMap<IBasketProduct>, action: IBasketAction): IMap<IBasketProduct> => {
     switch(action.type) {
         case actionTypes.REMOVE_FROM_BASKET:
-            let removeIndex = null;
+            let remove = {};
+            const toDecrement: IBasketProduct = state[action.payload];
 
-            state = state.map((product: IBasketProduct, index) => {
-                if (product.id === action.payload) {
-                    removeIndex = product.count === 1 ? index : null;
-                    return basketProductReducer(product, action);
-                }
-                return product;
-            });
+            remove[action.payload] = toDecrement.count > 1 ? basketProductReducer(toDecrement, action) : null;
 
-            return removeIndex === null ? state : [...state.slice(0, removeIndex), ...state.slice(removeIndex + 1)];
+            return Object.assign({}, state, remove);
         
         case actionTypes.ADD_TO_BASKET:
-            let productIncremented = false;
+            let add = {};
+            const toIncrement: IBasketProduct = state[action.payload] || {id: action.payload, count: 0};
 
-            state = state.map((product: IBasketProduct, index) => {
-                if (product.id === action.payload.id) {
-                    productIncremented = true;
-                    return basketProductReducer(product, action);
-                }
-                return product;
-            });
+            add[action.payload] = basketProductReducer(toIncrement, action);
 
-            return productIncremented ? state : [...state, basketProductReducer(action.payload, action)];
+            return Object.assign({}, state, add);
         
         default:
             return state;
     }
 }
 
-const basketProductReducer = (state: IBasketProduct, action: IBasketAction) => {
+const basketProductReducer = (state: IBasketProduct, action: IBasketAction): IBasketProduct => {
     switch(action.type) {
-        case actionTypes.ADD_TO_BASKET:
-            return Object.assign({}, state, {count: state.count + 1 || 1})
-        
+        case actionTypes.ADD_TO_BASKET:     
         case actionTypes.REMOVE_FROM_BASKET:
-            return Object.assign({}, state, {count: state.count - 1})
+            const unitPrice = state.itemPrice || getItemPriceForProduct(state.id);
+            const count = state.count + (action.type === actionTypes.ADD_TO_BASKET ? 1 : -1);
+            
+            return Object.assign({}, state, {
+                count,
+                unitPrice,
+                summarisedPrice: unitPrice * count
+            });
         
         default:
             return state;

@@ -6,6 +6,7 @@ import { IApplicationState }from '../main.redux';
 
 import { actions, IBasketActionsMapObject, IBasketState } from './basket.redux';
 import { IBasketProduct } from './basket-product';
+import { calculateBasketItems } from './basket-utility';
 
 interface IBasketStateProps extends IBasketState {}
 
@@ -19,7 +20,7 @@ class StatelessBasket extends React.Component<IBasketStateProps & IBasketDispatc
     public render(): JSX.Element {
         return (
             <div className="basket">
-                Basket: {this.props.products.length} items ({this.props.total || 0} DKK)
+                Basket: {calculateBasketItems(this.props.products)} items ({this.props.total || 0} DKK)
             </div>
         );
     }

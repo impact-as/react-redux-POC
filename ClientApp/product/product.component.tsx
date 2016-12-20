@@ -28,7 +28,7 @@ export class Product extends React.Component<IProductDispatchProps & IProductPro
                 >Favourite</Favourite>
 
                 {(this.props.product.availability
-                    ? <AddToBasket addToBasket={() => this.props.actions.addToBasket(this.props.product)}
+                    ? <AddToBasket addToBasket={() => this.props.actions.addToBasket(this.props.product.id)}
                                    removeFromBasket={() => this.props.actions.removeFromBasket(this.props.product.id)} />    
                     : null
                 )}

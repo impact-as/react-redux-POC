@@ -29,7 +29,7 @@ export class StatelessProductList extends React.Component<IProductListStateProps
         return (
             <section className="product-list">
                 <h2>Products</h2>
-                {this.props.products.map((product, key) => <Product key={key} product={product} actions={this.props.productActions} />) }
+                {Object.keys(this.props.products).map((key) => <Product key={key} product={this.props.products[key]} actions={this.props.productActions} />)}
             </section>
         );
     }

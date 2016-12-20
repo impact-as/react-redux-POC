@@ -3,6 +3,7 @@ import * as React from 'react';
 interface IAddToBasketProps {
     addToBasket: () => void;
     removeFromBasket: () => void;
+    count?: number;
 };
 
 export class AddToBasket extends React.Component<IAddToBasketProps, void> {

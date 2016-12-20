@@ -1,6 +1,7 @@
 import { ActionCreatorsMapObject, Action } from 'redux';
 
 import { productActionTypes, IProduct, productReducer } from '../product/';
+import { convertArrayToMap, IMap } from '../utility/';
 
 declare var fetch: (url: string, options?: {}) => any;
 
@@ -25,7 +26,8 @@ const fetchProducts = () => (dispatch) => {
     dispatch(requestProducts);
     fetch('http://www.json-generator.com/api/json/get/celLKmqymq', {method: 'get'})
         .then(response => response.json())
-        .then(products => dispatch(receiveProducts(products)));
+        .then(products => convertArrayToMap<IProduct>(products, 'id'))
+        .then(productMap => dispatch(receiveProducts(productMap)));
 };
 
 export const actions: IProductListActionsMapObject = {
@@ -35,10 +37,10 @@ export const actions: IProductListActionsMapObject = {
 //State
 export interface IProductListState {
     fetching: boolean;
-    products: IProduct[];
+    products: IMap<IProduct>;
 }
 
-export const productListReducer = (state: IProductListState = {products: []} as IProductListState, action: IProductListAction) => {
+export const productListReducer = (state: IProductListState = {products: {}} as IProductListState, action: IProductListAction) => {
     switch(action.type) {
         case actionTypes.REQUEST_PRODUCTS:
             return Object.assign({}, state, {fetching: true});
@@ -54,13 +56,13 @@ export const productListReducer = (state: IProductListState = {products: []} as 
     }
 }
 
-const productsReducer = (state: IProduct[], action: IProductListAction) => {
+const productsReducer = (state: IMap<IProduct>, action: IProductListAction) => {
     switch(action.type) {
         case actionTypes.TOGGLE_FAVOURITE:
-            return state.map((product: IProduct) => action.payload === product.id
-                ? productReducer(product, action)
-                : product
-            );
+            let productOverwrite = {};
+            productOverwrite[action.payload] = productReducer(state[action.payload], action);
+
+            return Object.assign({}, state, productOverwrite);
         
         default:
             return state;

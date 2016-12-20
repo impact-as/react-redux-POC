@@ -10,7 +10,7 @@ export const actionTypes = {
 
 export interface IProductActionsMapObject extends ActionCreatorsMapObject {
     toggleFavourite: (id: number) => Action;
-    addToBasket: (product: IProduct) => Action;
+    addToBasket: (id: number) => Action;
     removeFromBasket: (id: number) => Action;
 }
 

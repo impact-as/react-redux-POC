@@ -11,7 +11,7 @@ export interface IProduct {
     isfavorite: boolean;
     price: number;
     availability: boolean;
-    id: number;
+    id: string;
     unitPrice: string;
     image: string;
 }

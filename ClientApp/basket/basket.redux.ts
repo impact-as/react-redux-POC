@@ -33,13 +33,13 @@ export interface IBasketState {
     products: IBasketProduct[];
 }
 
-export const basketReducer = (state: IBasketState = {products: []} as IBasketState, action: IBasketAction) => {
+export const basketReducer = (state: IBasketState = {products: [], total: 0} as IBasketState, action: IBasketAction) => {
     switch(action.type) {
         case actionTypes.REMOVE_FROM_BASKET:
         case actionTypes.ADD_TO_BASKET:
             const products = basketProductsReducer(state.products, action);
-            const total = products.map((product: IBasketProduct): number => product.price * product.count)
-                                  .reduce((total, productPrice) => total + productPrice).toFixed(2);
+            const total = products.reduce((total, product: IBasketProduct): number => total + product.price * product.count, 0)
+                                  .toFixed(2);
 
             return Object.assign({}, state, {total, products});
         

@@ -1,7 +1,14 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 
-import { resolveFilter } from './product-filter.service';
+import { resolveFilter } from './product-filter.utility';
+
+/**
+ * Filters:
+ *  Favourite
+ *  Sorting
+ *  Price range
+ */
 
 class StatelessProductFilter extends React.Component<any, any> {
     render(): JSX.Element {

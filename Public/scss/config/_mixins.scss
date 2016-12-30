@@ -3,3 +3,10 @@
     left: 50%;
     transform: translateX(-50%);
 }
+
+@mixin button($bg-color: #fff) {
+    height: 30px;
+    padding: 5px 15px;
+    background-color: $bg-color;
+    border-radius: 3px;
+}

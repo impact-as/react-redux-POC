@@ -3,7 +3,10 @@
 }
 
 .product-filter__button {
+    @include button($bg-color: lightgrey);
+
     &--heart {
         font-size: 20px;
+        color: $color-dark;
     }
 }

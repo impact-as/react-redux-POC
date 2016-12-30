@@ -23,9 +23,12 @@ export class Product extends React.Component<IProductDispatchProps & IProductPro
             <div className={'product' + (this.props.product.availability ? '' : ' product--out-of-stock')}
                  style={{backgroundImage: `url(${this.props.product.image})`}}>
                 <div className="product__title">{this.props.product.name}</div>
+                
                 <Favourite toggleFavourite={() => this.props.actions.toggleFavourite(this.props.product.id)}
                            isFavourite={this.props.product.isfavorite}
-                >Favourite</Favourite>
+                >
+                    <i className="fa fa-heart" aria-hidden="true"></i>
+                </Favourite>
 
                 {(this.props.product.availability
                     ? <AddToBasket addToBasket={() => this.props.actions.addToBasket(this.props.product)}

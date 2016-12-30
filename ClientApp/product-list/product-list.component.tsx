@@ -2,6 +2,7 @@ import * as React from "react";
 import { connect } from "react-redux";
 import { bindActionCreators } from 'redux';
 
+import { ProductFilter } from '../product-filter/';
 import { Product, productActions, IProductActionsMapObject } from '../product/';
 import { IApplicationState }from '../main.redux';
 
@@ -29,7 +30,12 @@ export class StatelessProductList extends React.Component<IProductListStateProps
         return (
             <section className="product-list">
                 <h2>Products</h2>
-                {this.props.products.map((product, key) => <Product key={key} product={product} actions={this.props.productActions} />) }
+                <div className="product-list__filter">
+                    <ProductFilter />
+                </div>
+                <div className="products">
+                    {this.props.products.map((product, key) => <Product key={key} product={product} actions={this.props.productActions} />) }
+                </div>
             </section>
         );
     }

@@ -41,3 +41,12 @@
 .product-list {
     @include outer-container;
 }
+
+.product-list__filter {
+    padding: 20px 0;
+
+    .product-filter {
+        display: inline-block;
+        @include center-horizontal;
+    }
+}

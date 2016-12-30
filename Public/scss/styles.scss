@@ -3,6 +3,7 @@
 @import 'neat';
 @import 'normalize.scss/normalize.scss';
 
+@import 'config/mixins';
 @import 'config/grid';
 
 @import 'partials/base';
@@ -12,5 +13,6 @@
 @import 'partials/spots';
 
 @import 'partials/product';
+@import 'partials/product-filter';
 @import 'partials/nav';
 @import 'partials/basket';

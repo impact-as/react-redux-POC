@@ -1,7 +1,10 @@
+@import 'config/third-party-overwrites';
+
 /* 3rd party */
 @import 'bourbon';
 @import 'neat';
-@import 'normalize.scss/normalize.scss';
+@import 'font-awesome/scss/font-awesome';
+@import 'normalize.scss/normalize';
 
 @import 'config/mixins';
 @import 'config/grid';

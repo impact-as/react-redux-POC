@@ -2,14 +2,16 @@ import * as React from "react";
 import { connect } from "react-redux";
 import { bindActionCreators } from 'redux';
 
-import { ProductFilter } from '../product-filter/';
-import { Product, productActions, IProductActionsMapObject } from '../product/';
+import { ProductFilter, IFilter } from '../product-filter/';
+import { Product, productActions, IProductActionsMapObject, IProduct } from '../product/';
 import { IApplicationState }from '../main.redux';
 import { IBasketState } from '../basket/';
 
 import { actions, IProductListActionsMapObject, IProductListState } from './product-list.redux';
 
-interface IProductListStateProps extends IProductListState, IBasketState {}
+interface IProductListStateProps extends IProductListState, IBasketState {
+    filters: IFilter[];
+}
 
 interface IProductListDispatchProps {
     actions: IProductListActionsMapObject;
@@ -35,11 +37,11 @@ export class StatelessProductList extends React.Component<IProductListStateProps
                     <ProductFilter />
                 </div>
                 <div className="products">
-                    {this.props.products.map((product, key) => 
+                    {this.applyFilters(this.props.products, this.props.filters).map((product, key) =>
                         <Product key={key} 
                                  product={product} 
                                  basketCount={this.getBasketProductCount(product.id)} 
-                                 actions={this.props.productActions} />) 
+                                 actions={this.props.productActions} />)
                     }
                 </div>
             </section>
@@ -50,10 +52,21 @@ export class StatelessProductList extends React.Component<IProductListStateProps
         const product = this.props.basketProducts.filter(basketProduct => basketProduct.id === id)[0];
         return product ? product.count : 0;
     }
+
+    private applyFilters(products: IProduct[], filters: IFilter[]): IProduct[] {
+        filters.forEach(filter => {
+            products = products.filter(filter.comparator);
+        });
+
+        return products;
+    }
 }
 
 export const ProductList = connect<IProductListStateProps, IProductListDispatchProps, IProductListProps>(
-    (state: IApplicationState): IProductListStateProps => Object.assign({}, state.productList, state.basket),
+    (state: IApplicationState): IProductListStateProps => Object.assign(
+        {filters: state.productFilter}, 
+        state.productList, 
+        state.basket),
     (dispatch): IProductListDispatchProps => ({
         actions: bindActionCreators(actions, dispatch), 
         productActions: bindActionCreators(productActions, dispatch)

@@ -1,12 +1,17 @@
 .product-filter {
+    padding: 10px 0;
+    border-bottom: 1px solid $color-dark;
+    display: flex;
+    align-items: center;
+}
 
+.product-filter__item {
+    padding: 0 30px;
 }
 
 .product-filter__button {
-    @include button($bg-color: lightgrey);
-
     &--heart {
-        font-size: 20px;
+        font-size: 25px;
         color: $color-dark;
     }
 }

@@ -85,11 +85,8 @@ $product-outer-padding: 7px;
 
 .product-list__filter {
     padding: 20px 0;
-
-    .product-filter {
-        display: inline-block;
-        @include center-horizontal;
-    }
+    display: inline-block;
+    @include center-horizontal;
 }
 
 .add-to-basket {

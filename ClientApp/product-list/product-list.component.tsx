@@ -9,10 +9,7 @@ import { IBasketState } from '../basket/';
 
 import { actions, IProductListActionsMapObject, IProductListState } from './product-list.redux';
 
-interface IProductListStateProps {
-    products: any;
-    basketProducts: any;
-}
+interface IProductListStateProps extends IProductListState, IBasketState {}
 
 interface IProductListDispatchProps {
     actions: IProductListActionsMapObject;
@@ -56,7 +53,7 @@ export class StatelessProductList extends React.Component<IProductListStateProps
 }
 
 export const ProductList = connect<IProductListStateProps, IProductListDispatchProps, IProductListProps>(
-    (state: IApplicationState): IProductListStateProps => ({products: state.productList.products, basketProducts: state.basket.basketProducts}),
+    (state: IApplicationState): IProductListStateProps => Object.assign({}, state.productList, state.basket),
     (dispatch): IProductListDispatchProps => ({
         actions: bindActionCreators(actions, dispatch), 
         productActions: bindActionCreators(productActions, dispatch)

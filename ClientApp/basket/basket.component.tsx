@@ -17,13 +17,14 @@ interface IBasketProps {}
 
 class StatelessBasket extends React.Component<IBasketStateProps & IBasketDispatchProps & IBasketProps, void> {
     public shouldComponentUpdate(nextProps: IBasketStateProps & IBasketDispatchProps & IBasketProps): boolean {
-        return this.props.products !== nextProps.products;
+        return this.props.basketProducts !== nextProps.basketProducts;
     }
 
     public render(): JSX.Element {
         return (
             <div className="basket">
-                Basket: {this.props.products.reduce((items: number, product: IBasketProduct) => items + product.count, 0)} items ({this.props.total} DKK)
+                Basket: {this.props.basketProducts.reduce((items: number, product: IBasketProduct) => items + product.count, 0)} items 
+                ({this.props.total.toString().replace(".", ",")} DKK)
             </div>
         );
     }

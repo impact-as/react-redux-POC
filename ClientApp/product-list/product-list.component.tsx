@@ -5,10 +5,14 @@ import { bindActionCreators } from 'redux';
 import { ProductFilter } from '../product-filter/';
 import { Product, productActions, IProductActionsMapObject } from '../product/';
 import { IApplicationState }from '../main.redux';
+import { IBasketState } from '../basket/';
 
 import { actions, IProductListActionsMapObject, IProductListState } from './product-list.redux';
 
-interface IProductListStateProps extends IProductListState {}
+interface IProductListStateProps {
+    products: any;
+    basketProducts: any;
+}
 
 interface IProductListDispatchProps {
     actions: IProductListActionsMapObject;
@@ -22,7 +26,7 @@ export class StatelessProductList extends React.Component<IProductListStateProps
         this.props.actions.fetchProducts();
     }
 
-    shouldComponentUpdate() {
+    shouldComponentUpdate(nextProps: IProductListStateProps & IProductListDispatchProps & IProductListProps) {
         return true;
     }
 
@@ -34,15 +38,25 @@ export class StatelessProductList extends React.Component<IProductListStateProps
                     <ProductFilter />
                 </div>
                 <div className="products">
-                    {this.props.products.map((product, key) => <Product key={key} product={product} actions={this.props.productActions} />) }
+                    {this.props.products.map((product, key) => 
+                        <Product key={key} 
+                                 product={product} 
+                                 basketCount={this.getBasketProductCount(product.id)} 
+                                 actions={this.props.productActions} />) 
+                    }
                 </div>
             </section>
         );
     }
+
+    private getBasketProductCount(id: number): number {
+        const product = this.props.basketProducts.filter(basketProduct => basketProduct.id === id)[0];
+        return product ? product.count : 0;
+    }
 }
 
 export const ProductList = connect<IProductListStateProps, IProductListDispatchProps, IProductListProps>(
-    (state: IApplicationState): IProductListStateProps => (state.productList),
+    (state: IApplicationState): IProductListStateProps => ({products: state.productList.products, basketProducts: state.basket.basketProducts}),
     (dispatch): IProductListDispatchProps => ({
         actions: bindActionCreators(actions, dispatch), 
         productActions: bindActionCreators(productActions, dispatch)

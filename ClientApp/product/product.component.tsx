@@ -9,6 +9,7 @@ import { IProduct } from './product';
 
 interface IProductProps {
     product: IProduct
+    basketCount: number;
 };
 
 interface IProductDispatchProps {
@@ -30,11 +31,20 @@ export class Product extends React.Component<IProductDispatchProps & IProductPro
                     <i className="fa fa-heart" aria-hidden="true"></i>
                 </Favourite>
 
-                {(this.props.product.availability
-                    ? <AddToBasket addToBasket={() => this.props.actions.addToBasket(this.props.product)}
-                                   removeFromBasket={() => this.props.actions.removeFromBasket(this.props.product.id)} />    
-                    : null
-                )}
+                <div className="product__basket">
+                    <div className="product__price">
+                        {this.props.product.price.toString().replace(".", ",")} kr.
+                        <br />
+                        <span className="product__unit-price">({this.props.product.unitPrice})</span>
+                    </div>
+
+                    {(this.props.product.availability
+                        ? <AddToBasket addToBasket={() => this.props.actions.addToBasket(this.props.product)}
+                                       removeFromBasket={() => this.props.actions.removeFromBasket(this.props.product.id)}
+                                       count={this.props.basketCount} />    
+                        : null
+                    )}
+                </div>
                 
             </div>
         );

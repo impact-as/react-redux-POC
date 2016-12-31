@@ -70,10 +70,11 @@ $product-outer-padding: 7px;
 
     &.favourite {
         color: $color-red;
+        transform: scale(1.1);
 
         &:hover {
             color: $color-dark;
-            transform: scale(0.9);
+            transform: scale(1);
         }
     }
 }

@@ -2,7 +2,7 @@ import * as React from "react";
 import { connect } from "react-redux";
 import { bindActionCreators } from 'redux';
 
-import { ProductFilter, IFilter } from '../product-filter/';
+import { ProductFilter, IFilter, filterTypes } from '../product-filter/';
 import { Product, productActions, IProductActionsMapObject, IProduct } from '../product/';
 import { IApplicationState }from '../main.redux';
 import { IBasketState } from '../basket/';
@@ -55,7 +55,12 @@ export class StatelessProductList extends React.Component<IProductListStateProps
 
     private applyFilters(products: IProduct[], filters: IFilter[]): IProduct[] {
         filters.forEach(filter => {
-            products = products.filter(filter.comparator);
+            switch(filter.type) {
+                case filterTypes.FILTER:
+                    products = products.filter(filter.comparator as (product: IProduct) => boolean);
+                case filterTypes.SORT:
+                    products = products.sort(filter.comparator as (a: IProduct, b: IProduct) => number);
+            }
         });
 
         return products;

@@ -169,6 +169,12 @@ asn1@~0.2.3:
   version "0.2.3"
   resolved "https://registry.yarnpkg.com/asn1/-/asn1-0.2.3.tgz#dac8787713c9966849fc8180777ebe9c1ddf3b86"
 
+aspnet-prerendering@^2.0.2:
+  version "2.0.2"
+  resolved "https://registry.yarnpkg.com/aspnet-prerendering/-/aspnet-prerendering-2.0.2.tgz#09b527c5d50e11d9b74043b7e79a70225f846e25"
+  dependencies:
+    domain-task "^2.0.2"
+
 assert-plus@^0.2.0:
   version "0.2.0"
   resolved "https://registry.yarnpkg.com/assert-plus/-/assert-plus-0.2.0.tgz#d74e1b87e7affc0db8aadb7021f3fe48101ab234"
@@ -1252,6 +1258,17 @@ domain-browser@^1.1.1:
   version "1.1.7"
   resolved "https://registry.yarnpkg.com/domain-browser/-/domain-browser-1.1.7.tgz#867aa4b093faa05f1de08c06f4d7b21fdf8698bc"
 
+domain-context@^0.5.1:
+  version "0.5.1"
+  resolved "https://registry.yarnpkg.com/domain-context/-/domain-context-0.5.1.tgz#321c66a41055987507b2396acc5f04e53fb997c4"
+
+domain-task@^2.0.2:
+  version "2.0.2"
+  resolved "https://registry.yarnpkg.com/domain-task/-/domain-task-2.0.2.tgz#dcf4dc3db416bcd4cb889e619876d159dbe8710b"
+  dependencies:
+    domain-context "^0.5.1"
+    isomorphic-fetch "^2.2.1"
+
 domelementtype@1:
   version "1.3.0"
   resolved "https://registry.yarnpkg.com/domelementtype/-/domelementtype-1.3.0.tgz#b17aed82e8ab59e52dd9c19b1756e0fc187204c2"
@@ -2065,7 +2082,7 @@ isobject@^2.0.0:
   dependencies:
     isarray "1.0.0"
 
-isomorphic-fetch@^2.1.1:
+isomorphic-fetch@^2.1.1, isomorphic-fetch@^2.2.1:
   version "2.2.1"
   resolved "https://registry.yarnpkg.com/isomorphic-fetch/-/isomorphic-fetch-2.2.1.tgz#611ae1acf14f5e81f729507472819fe9733558a9"
   dependencies:

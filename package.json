@@ -4,6 +4,7 @@
   "description": "",
   "main": "webpack.config.js",
   "dependencies": {
+    "aspnet-prerendering": "^2.0.2",
     "font-awesome": "^4.7.0",
     "node-bourbon": "^4.2.8",
     "node-neat": "^1.7.2",

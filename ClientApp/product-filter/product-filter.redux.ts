@@ -37,7 +37,6 @@ export const actions: IProductFilterActionsMap = {
 }
 
 export const productFilterReducer = (state: IFilter[] = [], action: IProductFilterAction): IFilter[] => {
-    console.log(action);
     let filter;
     switch (action.type) {
         case actionTypes.TOGGLE_FILTER:

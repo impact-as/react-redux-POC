@@ -4,7 +4,7 @@ var commonConfig = require('./webpack.common.js');
 
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
 
-module.exports = webpackMerge(commonConfig, {
+module.exports = [webpackMerge(commonConfig, {
     // Enable sourcemaps for debugging webpack's output.
     devtool: "source-map",
     
@@ -31,4 +31,4 @@ module.exports = webpackMerge(commonConfig, {
             }
         })
     ],
-});
+}), require('./webpack.server.js')];

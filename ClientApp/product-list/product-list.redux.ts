@@ -21,9 +21,9 @@ export interface IProductListActionsMapObject extends ActionCreatorsMapObject {
 const requestProducts = (): IProductListAction => ({type: actionTypes.REQUEST_PRODUCTS});
 const receiveProducts = (products): IProductListAction => ({type: actionTypes.RECEIVE_PRODUCTS, payload: products});
 
-const fetchProducts = () => (dispatch) => {
+const fetchProducts = (renew?: boolean) => (dispatch) => {
     dispatch(requestProducts);
-    fetch('http://www.json-generator.com/api/json/get/celLKmqymq', {method: 'get'})
+    return fetch('http://www.json-generator.com/api/json/get/celLKmqymq', {method: 'get'})
         .then(response => response.json())
         .then(products => dispatch(receiveProducts(products)));
 };

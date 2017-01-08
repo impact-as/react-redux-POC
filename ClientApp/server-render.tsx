@@ -6,14 +6,16 @@ import { match, RouterContext } from 'react-router';
 
 import { createServerRenderer } from 'aspnet-prerendering';
 
-import { rootRoute as routes } from './routes';
+import { rootRoute as routes, getRoutes } from './routes';
 import { configureStore } from './main.redux';
 
 export default createServerRenderer((params: any): Promise<{html: string}> => {
     return new Promise<{html: string, globals: {[key: string]: any}}>((resolve, reject) => {
-        match({routes, location: params.location}, (error, redirectLocation, renderProps: any) => {
+        const store = configureStore();
+
+        match({routes: getRoutes(store), location: params.location}, (error, redirectLocation, renderProps: any) => {
+            
             // Build application instance.
-            const store = configureStore();
             const app = (
                 <Provider store={store}>
                     <RouterContext {...renderProps} />

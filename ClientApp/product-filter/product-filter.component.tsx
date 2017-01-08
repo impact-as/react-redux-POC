@@ -36,7 +36,6 @@ class StatelessProductFilter extends React.Component<IProductFilterDispatchProps
     }
 
     changeSortFunction = (e: React.UIEvent<HTMLSelectElement>) => {
-        console.log(e);
         this.props.actions.changeFilter({
             type: filterTypes.SORT,
             name: 'sort',

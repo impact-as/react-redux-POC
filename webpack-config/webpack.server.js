@@ -1,4 +1,3 @@
-// Configuration for server-side (prerendering) bundle suitable for running in Node
 module.exports = {
     entry: { 'server-render': './ClientApp/server-render.tsx' },
     resolve: { extensions: [ '', '.js', '.jsx', '.ts', '.tsx' ] },
@@ -18,6 +17,5 @@ module.exports = {
             }
         ]
     },
-    target: 'node',
-    devtool: 'inline-source-map'
+    target: 'node'
 };

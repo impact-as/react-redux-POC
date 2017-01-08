@@ -6,7 +6,7 @@ declare var fetch: (url: string, options?: {}) => any;
 
 //Actions
 const actionTypes = Object.assign({
-    REQUEST_PRODUCTS: 'REQUEST_PRODUCTS',
+    FETCH_PRODUCTS: 'FETCH_PRODUCTS',
     RECEIVE_PRODUCTS: 'RECEIVE_PRODUCTS'
 }, productActionTypes);
 
@@ -15,21 +15,25 @@ interface IProductListAction extends Action {
 }
 
 export interface IProductListActionsMapObject extends ActionCreatorsMapObject {
-    fetchProducts: () => void;
+    requestProducts: (renew?: boolean) => void;
 }
 
-const requestProducts = (): IProductListAction => ({type: actionTypes.REQUEST_PRODUCTS});
+const fetchProducts = (): IProductListAction => ({type: actionTypes.FETCH_PRODUCTS});
 const receiveProducts = (products): IProductListAction => ({type: actionTypes.RECEIVE_PRODUCTS, payload: products});
 
-const fetchProducts = (renew?: boolean) => (dispatch) => {
-    dispatch(requestProducts);
+const requestProducts = (renew?: boolean) => (dispatch) => {
+    if (!renew) {
+        return Promise.resolve();
+    }
+
+    dispatch(fetchProducts);
     return fetch('http://www.json-generator.com/api/json/get/celLKmqymq', {method: 'get'})
         .then(response => response.json())
         .then(products => dispatch(receiveProducts(products)));
 };
 
 export const actions: IProductListActionsMapObject = {
-    fetchProducts
+    requestProducts
 }
 
 //State
@@ -40,7 +44,7 @@ export interface IProductListState {
 
 export const productListReducer = (state: IProductListState = {products: []} as IProductListState, action: IProductListAction) => {
     switch(action.type) {
-        case actionTypes.REQUEST_PRODUCTS:
+        case actionTypes.FETCH_PRODUCTS:
             return Object.assign({}, state, {fetching: true});
         
         case actionTypes.RECEIVE_PRODUCTS:

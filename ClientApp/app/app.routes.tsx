@@ -15,17 +15,10 @@ export const getAppRoutes = (store: Store<IApplicationState>): RouteProps => {
         getComponent: (nextState, cb) => {
             // Static routing
             if (nextState.location.pathname === '/filter') {
-                if(!store.getState().productList.products.length) {
-                    
-                    // Load products into store for server rendering.
-                    (store as any).dispatch(productListActions.fetchProducts()).then(() => {
-                        cb(null, props => <ProductList {...props} />)
-                    });
-                    
-                    return;
-                }
-
-                cb(null, props => <ProductList {...props} />)
+                // Load products into store for server rendering.
+                (store as any).dispatch(productListActions.requestProducts(!store.getState().productList.products.length)).then(() => {
+                    cb(null, props => <ProductList {...props} />)
+                });
                 
                 return;
             }
@@ -42,8 +35,6 @@ export const getAppRoutes = (store: Store<IApplicationState>): RouteProps => {
         }
     };
 }
-
-const staticRoutes = ['/filter'];
 
 function resolveRoute(path: string): string {
     switch(path) {

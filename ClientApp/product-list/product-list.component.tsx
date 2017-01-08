@@ -21,8 +21,10 @@ interface IProductListDispatchProps {
 interface IProductListProps {}
 
 export class StatelessProductList extends React.Component<IProductListStateProps & IProductListDispatchProps & IProductListProps, void> {
-    componentWillMount() {
-        this.props.actions.fetchProducts();
+    componentDidMount() {
+        if (!this.props.products.length) {
+            this.props.actions.fetchProducts();
+        }
     }
 
     shouldComponentUpdate(nextProps: IProductListStateProps & IProductListDispatchProps & IProductListProps) {

@@ -1,26 +1,22 @@
 import * as React from "react";
 import { Link } from 'react-router';
+import { connect } from 'react-redux';
 
 import { Basket } from '../basket/';
 
-interface IAppComponentProps {};
-interface IAppComponentState {
+interface IAppComponentProps {
     menuItems: any[];
 };
 
-export class AppComponent extends React.Component<IAppComponentProps, IAppComponentState> {
-    componentWillMount() {
-        this.setState(Object.assign({}, this.state, {menuItems: window['menuItems']}));
-    }
-
+class StatelessAppComponent extends React.Component<IAppComponentProps, void> {
     render(): JSX.Element {
         return (
             <div className="site">
                 <header className="site__header">
                     <div className="container">
                         <nav className="main-menu">
-                            {this.state.menuItems.map((menuItem, key) => (
-                                <Link className="main-menu__item" to={menuItem.Url} key={key}>{menuItem.Title}</Link>
+                            {this.props.menuItems.map((menuItem, key) => (
+                                <Link className="main-menu__item" to={menuItem.Url} key={key} activeClassName="main-menu__item--active">{menuItem.Title}</Link>
                             ))}
                         </nav>
                         <Basket />
@@ -34,3 +30,5 @@ export class AppComponent extends React.Component<IAppComponentProps, IAppCompon
         );
     }
 }
+
+export const AppComponent = connect<IAppComponentProps>()(StatelessAppComponent);

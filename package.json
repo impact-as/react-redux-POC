@@ -5,6 +5,7 @@
   "main": "webpack.config.js",
   "dependencies": {
     "aspnet-prerendering": "^2.0.2",
+    "fetch-everywhere": "^1.0.5",
     "font-awesome": "^4.7.0",
     "node-bourbon": "^4.2.8",
     "node-neat": "^1.7.2",
@@ -20,7 +21,8 @@
     "redux-actions": "^0.13.0",
     "redux-devtools-extension": "^1.0.0",
     "redux-logger": "^2.7.4",
-    "redux-thunk": "^2.1.0"
+    "redux-thunk": "^2.1.0",
+    "util": "^0.10.3"
   },
   "devDependencies": {
     "@types/react": "^0.14.50",

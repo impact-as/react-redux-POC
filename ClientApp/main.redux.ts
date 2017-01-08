@@ -1,5 +1,8 @@
-import { Action, combineReducers } from 'redux';
+import { Action, combineReducers, createStore, applyMiddleware, Store } from 'redux';
 import { routerReducer as routing } from 'react-router-redux';
+import thunkMiddleware from 'redux-thunk';
+import { syncHistoryWithStore } from 'react-router-redux';
+import { composeWithDevTools } from 'redux-devtools-extension';
 
 // import { testReducer as count } from './test/';
 import { productListReducer as productList, IProductListState } from './product-list/';
@@ -12,9 +15,17 @@ export interface IApplicationState {
     productFilter: IFilter[]
 }
 
-export const rootReducer = combineReducers({
+export const rootReducer = combineReducers<IApplicationState>({
     productList,
     basket,
     productFilter,
     routing
 });
+
+export const configureStore = (initialState?: IApplicationState): Store<IApplicationState> => {
+    const enhancer = composeWithDevTools(
+        applyMiddleware(thunkMiddleware)
+    );
+
+    return createStore<IApplicationState>(rootReducer, initialState, enhancer);
+}

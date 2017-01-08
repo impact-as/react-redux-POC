@@ -1,13 +1,40 @@
+import * as React from 'react';
+import { Provider } from 'react-redux';
+import { createStore } from 'redux';
+import { renderToString, renderToStaticMarkup } from 'react-dom/server';
+import { match, RouterContext } from 'react-router';
+
 import { createServerRenderer } from 'aspnet-prerendering';
 
-export default createServerRenderer(params => {
-    return new Promise((resolve, reject) => {
-        const html = `
-            <h1>Hello world!</h1>
-            <p>Current time in Node is: ${ new Date() }</p>
-            <p>Request path is: ${ params.location.path }</p>
-            <p>Absolute URL is: ${ params.absoluteUrl }</p>`;
+import { rootRoute as routes } from './routes';
+import { configureStore } from './main.redux';
 
-        resolve({ html });
+export default createServerRenderer((params: any): Promise<{html: string}> => {
+    return new Promise<{html: string, globals: {[key: string]: any}}>((resolve, reject) => {
+        match({routes, location: params.location}, (error, redirectLocation, renderProps: any) => {
+            // Build application instance.
+            const store = configureStore();
+            const app = (
+                <Provider store={store}>
+                    <RouterContext {...renderProps} />
+                </Provider>
+            );
+
+            // Pre-render app to start async tasks.
+            const renderedApp = renderToString(app);
+
+            console.log(`\n\n Product list: ${store.getState().productList.products.length} \n\n`)
+
+            // When tasks are done, perform final render.
+            // Also feed redux state to application to avoid re-running initial setup.
+            params.domainTasks.then(() => {
+                console.log(`\n\n Product list 2nd: ${store.getState().productList.products.length} \n\n`)
+                resolve({
+                    html: renderToString(app),
+                    // html: renderedApp,
+                    globals: { initialReduxState: store.getState() }
+                });
+            }, reject); // Also propagate any errors back into the host application
+        });
     });
 });

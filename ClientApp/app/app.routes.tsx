@@ -1,12 +1,13 @@
 import * as React from 'react';
 import { RouteProps } from 'react-router';
+import 'fetch-everywhere';
 
 import { ProductList } from '../product-list/';
 
 declare function require(name: string);
 declare function fetch(url: string): Promise<any>;
 
-const appRoutes: RouteProps = {
+ export const appRoutes: RouteProps = {
     getComponent: (nextState, cb) => {
         //Static routing
         if (staticRoutes.filter(route => route === nextState.location.pathname.replace('/', '')).length) {
@@ -25,8 +26,6 @@ const appRoutes: RouteProps = {
             });
     }
 }
-
-export default appRoutes;
 
 const staticRoutes = ['filter'];
 

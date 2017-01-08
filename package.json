@@ -5,8 +5,9 @@
   "main": "webpack.config.js",
   "dependencies": {
     "aspnet-prerendering": "^2.0.2",
-    "fetch-everywhere": "^1.0.5",
     "font-awesome": "^4.7.0",
+    "isomorphic-fetch": "^2.2.1",
+    "json-loader": "^0.5.4",
     "node-bourbon": "^4.2.8",
     "node-neat": "^1.7.2",
     "normalize.scss": "^0.1.0",

@@ -6,7 +6,7 @@ import { match, RouterContext } from 'react-router';
 
 import { createServerRenderer } from 'aspnet-prerendering';
 
-import { rootRoute as routes, getRoutes } from './routes';
+import { getRoutes } from './routes';
 import { configureStore } from './main.redux';
 
 export default createServerRenderer((params: any): Promise<{html: string}> => {

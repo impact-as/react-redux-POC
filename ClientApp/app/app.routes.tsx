@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { RouteProps } from 'react-router';
 import { Store } from 'redux';
-import 'fetch-everywhere';
+import 'isomorphic-fetch';
 
 import { ProductList } from '../product-list/';
 import { productListActions } from '../product-list/';

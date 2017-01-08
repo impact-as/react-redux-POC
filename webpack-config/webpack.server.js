@@ -8,6 +8,9 @@ module.exports = {
         filename: '[name].js'
     },
     module: {
+        preLoaders : [
+            { test: /\.json$/, loader: 'json'}
+        ],
         loaders: [
             { 
                 test: /\.tsx?$/, 

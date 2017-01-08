@@ -5,13 +5,6 @@ import { bindActionCreators } from 'redux';
 import { actions, IProductFilterActionsMap, filterTypes } from './product-filter.redux';
 import { favouriteFilter, generateSortComparatorFromOption } from './product-filter.utility';
 
-/**
- * Filters:
- *  Favourite
- *  Sorting
- *  Price range
- */
-
 interface IProductFilterDispatchProps {
     actions: IProductFilterActionsMap;
 }

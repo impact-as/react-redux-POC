@@ -9,7 +9,7 @@ import { syncHistoryWithStore } from 'react-router-redux';
 import { AppComponent } from './app/app.component';
 import { ProductList } from './product-list/';
 import { TestComponent } from './test/';
-import { rootRoute, getRoutes } from './routes';
+import { getRoutes } from './routes';
 
 import { rootReducer, IApplicationState, configureStore } from './main.redux';
 

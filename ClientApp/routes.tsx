@@ -4,7 +4,7 @@ import { Store } from 'redux';
 
 import { ProductList } from './product-list/product-list.component';
 import { AppComponent } from './app/app.component';
-import { appRoutes, getAppRoutes } from  './app/app.routes';
+import { getAppRoutes } from  './app/app.routes';
 
 import { IApplicationState } from './main.redux';
 

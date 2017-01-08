@@ -25,12 +25,9 @@ export default createServerRenderer((params: any): Promise<{html: string}> => {
             // Pre-render app to start async tasks.
             const renderedApp = renderToString(app);
 
-            console.log(`\n\n Product list: ${store.getState().productList.products.length} \n\n`)
-
             // When tasks are done, perform final render.
             // Also feed redux state to application to avoid re-running initial setup.
             params.domainTasks.then(() => {
-                console.log(`\n\n Product list 2nd: ${store.getState().productList.products.length} \n\n`)
                 resolve({
                     html: renderToString(app),
                     // html: renderedApp,

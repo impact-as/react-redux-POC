@@ -1,0 +1,1 @@
+export { FormsExample } from './forms-example.component';

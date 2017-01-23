@@ -5,6 +5,7 @@ import 'isomorphic-fetch';
 
 import { ProductList } from '../product-list/';
 import { productListActions } from '../product-list/';
+import { FormsExample } from '../forms/';
 import { IApplicationState } from '../main.redux';
 
 declare function require(name: string);
@@ -21,6 +22,8 @@ export const getAppRoutes = (store: Store<IApplicationState>): RouteProps => {
                 });
                 
                 return;
+            } else if (nextState.location.pathname === '/forms') {
+                cb(null, props => <FormsExample {...props} />)
             }
             
             // Dynamic routing

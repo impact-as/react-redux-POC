@@ -12,3 +12,18 @@ button, a, input[type="submit"] {
 select {
     outline: none;
 }
+
+input[type="text"],
+textarea {
+    border-radius: 3px;
+    border: 1px solid lightgrey;
+    display: block;
+    margin-bottom: 10px;
+    padding: 5px;
+}
+
+label {
+    display: block;
+    margin-bottom: 3px;
+    font-size: 14px;
+}

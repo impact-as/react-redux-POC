@@ -21,7 +21,8 @@ export const getRoutes = (store: Store<IApplicationState>): RouteProps => {
                     {Url: '/', Title: 'Home'},
                     {Url: '/subpage', Title: 'Subpage'},
                     {Url: '/sidebar', Title: 'Sidebar'},
-                    {Url: '/filter', Title: 'Filter'}
+                    {Url: '/filter', Title: 'Filter'},
+                    {Url: '/forms', Title: 'Forms'}
                 ]} {...props} />
             });
         },

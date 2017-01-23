@@ -1,0 +1,15 @@
+a.btn,
+button.btn,
+input[type="submit"].btn {
+    padding: 5px 15px;
+    border-radius: 3px;
+
+    &--blue {
+        background-color: dodgerblue;
+        color: white;
+
+        &:hover {
+            background-color: darken(dodgerblue, 15%);
+        }
+    }
+}

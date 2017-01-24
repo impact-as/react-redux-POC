@@ -1,26 +1,26 @@
 import * as React from 'react';
 
-import { validateEmail, submitFormExample } from './forms.utility';
+import { validateEmail, submitFormExample, IFormInputState, validateInput, stateValidators } from './forms.utility';
 
 interface IFormsExampleState {
-    name: string;
-    email: string;
-    message: string;
+    name: IFormInputState;
+    email: IFormInputState;
+    message: IFormInputState;
 }
 
 export class FormsExample extends React.PureComponent<void, IFormsExampleState> {
-    validate = (name, value, validatorsMap) => {
-        for (let validatorKey in validatorsMap) {
-            
-        }
-    }
-
     handleChange = (event: React.FormEvent<HTMLInputElement | HTMLTextAreaElement>, validatorsObj) => {
         const name = event.currentTarget.name;
         const value = event.currentTarget.value;
 
-        this.setState(Object.assign({}, this.state, {[name]: value}));
-        this.validate(name, value, validatorsObj);
+        this.setState(Object.assign({}, this.state, {
+            [name]: {
+                value,
+                validators: Object.assign({}, stateValidators(this.state[name]), validateInput(value, validatorsObj))
+            }
+        }));
+
+        console.log(this.state);
     }
 
     render() {
@@ -32,8 +32,8 @@ export class FormsExample extends React.PureComponent<void, IFormsExampleState> 
                         <input  type="text" 
                                 name="name" 
                                 onChange={(e) => this.handleChange(e, {
-                                    lengthSpan: (value: string) => !(value.length > 2 && value.length > 30),
-                                    required: true
+                                    lengthSpan: (value: string) => (value.length > 2 && value.length < 30),
+                                    required: (value: string) => value.length > 0
                                 })} />
                     </label>
 
@@ -42,8 +42,8 @@ export class FormsExample extends React.PureComponent<void, IFormsExampleState> 
                         <input  type="text" 
                                 name="email" 
                                 onChange={(e) => this.handleChange(e, {
-                                    lengthSpan: (value: string) => !(value.length > 2 && value.length > 30),
-                                    required: true,
+                                    lengthSpan: (value: string) => (value.length > 2 && value.length < 30),
+                                    required: (value: string) => value.length > 0,
                                     emailPattern: validateEmail
                                 })} />
                     </label>
@@ -54,7 +54,7 @@ export class FormsExample extends React.PureComponent<void, IFormsExampleState> 
                                     cols={40} 
                                     rows={10}
                                     onChange={(e) =>  this.handleChange(e, {
-                                        lengthSpan: (value: string) => !(value.length > 2 && value.length > 60)
+                                        lengthSpan: (value: string) => (value.length < 255)
                                     })}></textarea>
                     </label>
 

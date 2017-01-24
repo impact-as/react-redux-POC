@@ -12,4 +12,8 @@ input[type="submit"].btn {
             background-color: darken(dodgerblue, 15%);
         }
     }
+
+    &[disabled] {
+        background-color: lightgrey;
+    }
 }

@@ -8,14 +8,16 @@ export const validateEmail = (value: string) => {
     return re.test(value);
 }
 
-interface IValidators {
+export interface IValidators {
     [prop: string]: boolean;
-    dirty: boolean;
 }
 
+
+
 export interface IFormInputState {
-    name: string;
-    validators: IValidators
+    value: string;
+    dirty: boolean;
+    validators: IValidators;
 }
 
 export const stateValidators = (inputState: IFormInputState): IValidators => {

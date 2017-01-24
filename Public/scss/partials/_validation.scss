@@ -1,0 +1,20 @@
+.validation-messages {
+    color: darkred;
+    font-size: 12px;
+    
+    > * {
+        display: none;
+
+        &:first-of-type {
+            display: block;
+        }
+    }
+}
+
+input,
+textarea {
+    &.validation-error {
+        border-color: darkred;
+        outline-color: darkred;
+    }
+}

@@ -11,7 +11,7 @@ interface IFrontpageComponentProps {
 
 interface IFrontpageComponentState {};
 
-export class FrontpageComponent extends React.Component<IFrontpageComponentProps, IFrontpageComponentState> {
+export class FrontpageComponent extends React.PureComponent<IFrontpageComponentProps, IFrontpageComponentState> {
     public render(): JSX.Element {
         return (
             <div className="layout layout--frontpage">

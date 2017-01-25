@@ -18,7 +18,7 @@ interface IProductDispatchProps {
 
 interface IProductState {};
 
-export class Product extends React.Component<IProductDispatchProps & IProductProps, IProductState> {
+export class Product extends React.PureComponent<IProductDispatchProps & IProductProps, IProductState> {
     public render(): JSX.Element {
         return (
             <div className={'product' + (this.props.product.availability ? '' : ' product--out-of-stock')}

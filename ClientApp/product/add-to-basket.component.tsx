@@ -6,7 +6,7 @@ interface IAddToBasketProps {
     count: number;
 };
 
-export class AddToBasket extends React.Component<IAddToBasketProps, void> {
+export class AddToBasket extends React.PureComponent<IAddToBasketProps, void> {
     handleRightClick = (e: React.MouseEvent<HTMLButtonElement>): boolean => {
         e.preventDefault();
         this.props.removeFromBasket();

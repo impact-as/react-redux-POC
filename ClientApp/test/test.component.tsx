@@ -14,7 +14,7 @@ interface ITestComponentDispatchProps {
 
 interface ITestComponentState {};
 
-class StatelessTestComponent extends React.Component<ITestComponentStateProps & ITestComponentDispatchProps, ITestComponentState> {
+class StatelessTestComponent extends React.PureComponent<ITestComponentStateProps & ITestComponentDispatchProps, ITestComponentState> {
     public render(): JSX.Element {
         return (
             <div>

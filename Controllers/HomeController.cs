@@ -25,7 +25,8 @@ namespace ReactPoc.Controllers
                     MenuItem.CreateItem("Home", "/"),
                     MenuItem.CreateItem("Subpage", "/subpage"),
                     MenuItem.CreateItem("Sidebar", "/sidebar"),
-                    MenuItem.CreateItem("Filter", "/filter")
+                    MenuItem.CreateItem("Filter", "/filter"),
+                    MenuItem.CreateItem("Forms", "/forms")
                 };
                 return menuItems.ToList();
             }

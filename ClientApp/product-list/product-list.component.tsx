@@ -22,11 +22,7 @@ interface IProductListProps {
     loadedProducts: IProduct[];
 }
 
-export class StatelessProductList extends React.Component<IProductListStateProps & IProductListDispatchProps & IProductListProps, void> {
-    shouldComponentUpdate(nextProps: IProductListStateProps & IProductListDispatchProps & IProductListProps) {
-        return true;
-    }
-
+export class StatelessProductList extends React.PureComponent<IProductListStateProps & IProductListDispatchProps & IProductListProps, void> {
     render(): JSX.Element {
         return (
             <section className="product-list">

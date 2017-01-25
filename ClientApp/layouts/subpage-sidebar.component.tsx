@@ -9,7 +9,7 @@ interface ISubpageSidebarComponentProps {
 
 interface ISubpageSidebarComponentState {};
 
-export class SubpageSidebarComponent extends React.Component<ISubpageSidebarComponentProps, ISubpageSidebarComponentState> {
+export class SubpageSidebarComponent extends React.PureComponent<ISubpageSidebarComponentProps, ISubpageSidebarComponentState> {
     public render(): JSX.Element {
         return (
             <div className="layout layout--subpage-sidebar">

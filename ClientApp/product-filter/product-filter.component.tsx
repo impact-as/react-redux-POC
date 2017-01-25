@@ -9,7 +9,7 @@ interface IProductFilterDispatchProps {
     actions: IProductFilterActionsMap;
 }
 
-class StatelessProductFilter extends React.Component<IProductFilterDispatchProps, any> {
+class StatelessProductFilter extends React.PureComponent<IProductFilterDispatchProps, any> {
     render(): JSX.Element {
         return (
             <div className="product-filter">

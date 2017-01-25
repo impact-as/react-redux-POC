@@ -15,7 +15,7 @@ interface IBasketDispatchProps {
 
 interface IBasketProps {}
 
-class StatelessBasket extends React.Component<IBasketStateProps & IBasketDispatchProps & IBasketProps, void> {
+class StatelessBasket extends React.PureComponent<IBasketStateProps & IBasketDispatchProps & IBasketProps, void> {
     public shouldComponentUpdate(nextProps: IBasketStateProps & IBasketDispatchProps & IBasketProps): boolean {
         return this.props.basketProducts !== nextProps.basketProducts;
     }

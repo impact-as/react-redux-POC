@@ -1,15 +1,10 @@
 import * as React from "react";
 
-interface IImageSpotProps { data:any }
-interface IImageSpotState {  }
+interface IImageSpotProps { 
+    data: any;
+}
 
-class GallerySpot extends React.Component<IImageSpotProps, {}> {
-    state: IImageSpotState;
-    constructor() {
-        super();
-
-    }  
-
+export class GallerySpot extends React.PureComponent<IImageSpotProps, void> {
     render() {
         return (
             <section className="spot spot--gallery">

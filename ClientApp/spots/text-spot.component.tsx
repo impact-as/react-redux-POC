@@ -5,15 +5,8 @@ interface ITextSpotProps {
         content: string;
     };
 }
-interface ITextSpotState {  }
 
-class TextSpot extends React.Component<ITextSpotProps, {}> {
-    state: ITextSpotState;
-    constructor() {
-        super();
-
-    }   
-
+export class TextSpot extends React.PureComponent<ITextSpotProps, void> {
     render() {
         return (
             <section className="spot spot--text">

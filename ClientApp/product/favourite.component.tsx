@@ -9,7 +9,7 @@ interface IFavouriteProps {
 
 interface IFavouriteState {};
 
-export class Favourite extends React.Component<IFavouriteProps, IFavouriteState> {
+export class Favourite extends React.PureComponent<IFavouriteProps, IFavouriteState> {
     public render(): JSX.Element {
         return (
             <button onClick={this.props.toggleFavourite} className={'toggle-favourite' + (this.props.isFavourite ? ' favourite': '')}>

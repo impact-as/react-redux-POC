@@ -9,7 +9,7 @@ interface ISubpageComponentProps {
 
 interface ISubpageComponentState {};
 
-export class SubpageComponent extends React.Component<ISubpageComponentProps, ISubpageComponentState> {
+export class SubpageComponent extends React.PureComponent<ISubpageComponentProps, ISubpageComponentState> {
     public render(): JSX.Element {
         return (
             <div className="layout layout--subpage">

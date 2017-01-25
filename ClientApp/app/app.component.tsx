@@ -8,7 +8,7 @@ interface IAppComponentProps {
     menuItems: any[];
 };
 
-class StatelessAppComponent extends React.Component<IAppComponentProps, void> {
+export class AppComponent extends React.PureComponent<IAppComponentProps, void> {
     render(): JSX.Element {
         return (
             <div className="site">
@@ -30,5 +30,3 @@ class StatelessAppComponent extends React.Component<IAppComponentProps, void> {
         );
     }
 }
-
-export const AppComponent = connect<IAppComponentProps>()(StatelessAppComponent);

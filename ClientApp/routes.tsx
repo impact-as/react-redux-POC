@@ -17,13 +17,7 @@ export const getRoutes = (store: Store<IApplicationState>): RouteProps => {
         // We start with the main layout component.
         getComponent: (nextState, cb) => {
             cb(null, props => {
-                return <AppComponent menuItems={[
-                    {Url: '/', Title: 'Home'},
-                    {Url: '/subpage', Title: 'Subpage'},
-                    {Url: '/sidebar', Title: 'Sidebar'},
-                    {Url: '/filter', Title: 'Filter'},
-                    {Url: '/forms', Title: 'Forms'}
-                ]} {...props} />
+                return <AppComponent menuItems={store.getState().menuItems} {...props} />
             });
         },
 

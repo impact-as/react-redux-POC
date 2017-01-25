@@ -3,7 +3,8 @@
 
 @model HomeViewModel
 
-<div id="entry" asp-prerender-module="ClientApp/dist/server-render"></div>
+<div id="entry" asp-prerender-module="ClientApp/dist/server-render"
+                asp-prerender-data="new {menuItems = @Model.Routes}"></div>
 
 @section scripts {
     <script>

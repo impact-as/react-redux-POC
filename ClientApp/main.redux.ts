@@ -10,12 +10,14 @@ import { basketReducer as basket, IBasketState } from './basket/';
 import { productFilterReducer as productFilter, IFilter } from './product-filter/';
 
 export interface IApplicationState {
-    basket: IBasketState,
-    productList: IProductListState,
-    productFilter: IFilter[]
+    menuItems: any[];
+    basket: IBasketState;
+    productList: IProductListState;
+    productFilter: IFilter[];
 }
 
 export const rootReducer = combineReducers<IApplicationState>({
+    menuItems: (state = [], action) => state,
     productList,
     basket,
     productFilter,

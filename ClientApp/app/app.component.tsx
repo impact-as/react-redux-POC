@@ -16,7 +16,7 @@ export class AppComponent extends React.PureComponent<IAppComponentProps, void> 
                     <div className="container">
                         <nav className="main-menu">
                             {this.props.menuItems.map((menuItem, key) => (
-                                <Link className="main-menu__item" to={menuItem.Url} key={key} activeClassName="main-menu__item--active">{menuItem.Title}</Link>
+                                <Link className="main-menu__item" to={menuItem.url} key={key} activeClassName="main-menu__item--active">{menuItem.title}</Link>
                             ))}
                         </nav>
                         <Basket />

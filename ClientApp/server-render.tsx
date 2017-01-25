@@ -11,7 +11,7 @@ import { configureStore } from './main.redux';
 
 export default createServerRenderer((params: any): Promise<{html: string}> => {
     return new Promise<{html: string, globals: {[key: string]: any}}>((resolve, reject) => {
-        const store = configureStore();
+        const store = configureStore(params.data);
 
         match({routes: getRoutes(store), location: params.location}, (error, redirectLocation, renderProps: any) => {
             

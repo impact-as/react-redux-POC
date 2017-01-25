@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { validateEmail, submitFormExample, IFormInputState, validateInput, stateValidators, IValidators } from './forms.utility';
+import { validateEmail, submitFormExample, IFormInputState, validateInput, getStateErrors, IValidatorsMap, IErrorsMap } from './forms.utility';
 import { ValidationMessages } from './validation-messages.component';
 
 interface IFormsExampleState {
@@ -17,14 +17,30 @@ export class FormsExample extends React.PureComponent<void, IFormsExampleState> 
         this.setState({} as IFormsExampleState);
     }
 
-    handleChange = (event: React.FormEvent<HTMLInputElement | HTMLTextAreaElement>, validatorsObj): void => {
+    setValidators = (event: React.FormEvent<HTMLInputElement | HTMLTextAreaElement>, validatorsMap) => {
         const name = event.currentTarget.name;
         const value = event.currentTarget.value;
 
         this.setState(Object.assign({}, this.state, {
             [name]: {
                 value,
-                validators: Object.assign({}, stateValidators(this.state[name]), validateInput(value, validatorsObj))
+                dirty: !!this.isDirty(name),
+                validators: validatorsMap,
+                errors: Object.assign({}, getStateErrors(this.state[name]), validateInput(value, validatorsMap))
+            }
+        }));
+    }
+
+    handleChange = (event: React.FormEvent<HTMLInputElement | HTMLTextAreaElement>): void => {
+        const name = event.currentTarget.name;
+        const value = event.currentTarget.value;
+
+        this.setState(Object.assign({}, this.state, {
+            [name]: {
+                value,
+                dirty: !!this.isDirty(name),
+                validators: this.state[name].validators,
+                errors: Object.assign({}, getStateErrors(this.state[name]), validateInput(value, this.state[name].validators))
             }
         }));
     }
@@ -37,35 +53,42 @@ export class FormsExample extends React.PureComponent<void, IFormsExampleState> 
         }));
     }
 
-    getValidators = (name: string): IValidators => {
+    getErrors = (name: string): IErrorsMap => {
         if (!this.state || !this.state[name]) {
-            return {} as IValidators;
+            return {} as IErrorsMap;
         }
-        return this.state[name].validators;
+        return this.state[name].errors;
     }
 
-    isValid = (name?: string): boolean => {
-        if (!name) { // Validate entire form.
-            let validationErrors: boolean[] = [];
+    isFormValid = ():boolean => {
+        let validationErrors: boolean[] = [];
             for (let key in this.state) {
-                validationErrors = [...validationErrors, this.isValid(key)];
+                validationErrors = [...validationErrors, this.isValid(key, true)];
             }
 
             return validationErrors.some(error => error);
-        }
+    }
 
-        if (!this.state || !this.state[name] || !this.state[name].dirty) {
+    isValid = (name: string, ignoreDirty?: boolean): boolean => {
+        if (!this.state || !this.state[name] || (!this.state[name].dirty && !ignoreDirty)) {
             return false;
         }
 
-        const validators = this.getValidators(name);
-        for (let key in validators) {
-            if (!validators[key]) {
+        const errors = this.getErrors(name);
+        for (let key in errors) {
+            if (errors[key]) {
                 return true;
             }
         }
 
         return false;
+    }
+
+    isDirty = (name: string): boolean =>  {
+        if (!this.state || !this.state[name]) {
+            return false;
+        }
+        return this.state[name].dirty;
     }
 
     render() {
@@ -77,13 +100,14 @@ export class FormsExample extends React.PureComponent<void, IFormsExampleState> 
                         <input  type="text" 
                                 name="name"
                                 className={(this.isValid("name") ? "validation-error" : "")}
-                                onBlur={this.setDirty}
-                                onChange={(e) => this.handleChange(e, {
+                                onFocus={(e) => this.setValidators(e, {
                                     lengthSpan: (value: string) => (value.length > 2 && value.length < 30),
                                     required: (value: string) => value.length > 0
-                                })} />
+                                })}
+                                onBlur={this.setDirty}
+                                onChange={this.handleChange} />
 
-                        <ValidationMessages {...this.getValidators("name")} comparator="id">
+                        <ValidationMessages {...this.getErrors("name")} comparator="id" dirty={this.isDirty("name")}>
                             <span id="required">* Field is required</span>
                             <span id="lengthSpan">* Field does not match length requirements (2 &lt; x &lt; 30)</span>
                         </ValidationMessages>
@@ -94,14 +118,15 @@ export class FormsExample extends React.PureComponent<void, IFormsExampleState> 
                         <input  type="text" 
                                 name="email"
                                 className={(this.isValid("email") ? "validation-error" : "")}
-                                onBlur={this.setDirty}
-                                onChange={(e) => this.handleChange(e, {
+                                onFocus={(e) => this.setValidators(e, {
                                     lengthSpan: (value: string) => (value.length > 2 && value.length < 30),
                                     required: (value: string) => value.length > 0,
                                     emailPattern: validateEmail
-                                })} />
+                                })}
+                                onBlur={this.setDirty}
+                                onChange={this.handleChange} />
                         
-                        <ValidationMessages {...this.getValidators("email")} comparator="id">
+                        <ValidationMessages {...this.getErrors("email")} comparator="id" dirty={this.isDirty("email")}>
                             <span id="required">* Field is required</span>
                             <span id="emailPattern">* Does not match e-mail pattern</span>
                             <span id="lengthSpan">* Field does not match length requirements (2 &lt; x &lt; 30)</span>
@@ -114,17 +139,18 @@ export class FormsExample extends React.PureComponent<void, IFormsExampleState> 
                                     cols={40} 
                                     rows={10}
                                     className={(this.isValid("message") ? "validation-error" : "")}
-                                    onBlur={this.setDirty}
-                                    onChange={(e) =>  this.handleChange(e, {
+                                    onFocus={(e) => this.setValidators(e, {
                                         maxLength: (value: string) => (value.length < 255)
-                                    })}></textarea>
+                                    })}
+                                    onBlur={this.setDirty}
+                                    onChange={this.handleChange}></textarea>
                         
-                        <ValidationMessages {...this.getValidators("message")} comparator="id">
+                        <ValidationMessages {...this.getErrors("message")} comparator="id" dirty={this.isDirty("message")}>
                             <span id="maxLength">* Field contains too many characters (above 255)</span>
                         </ValidationMessages>
                     </label>
 
-                    <input type="submit" value="Submit" className="btn btn--blue" disabled={this.isValid()} />
+                    <input type="submit" value="Submit" className="btn btn--blue" disabled={this.isFormValid()} />
                 </form>
             </div>
         );

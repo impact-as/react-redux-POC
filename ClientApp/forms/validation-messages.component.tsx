@@ -2,6 +2,7 @@ import * as React from 'react';
 
 interface IValidationMessagesProps {
     comparator: string;
+    dirty: boolean;
 }
 
 interface IValidationValidators { 
@@ -17,10 +18,12 @@ export class ValidationMessages extends React.PureComponent<IValidationMessagesP
     }
 
     resolveChildNode(node: any) {
+        if (!this.props.dirty) return null;
+
         if ((node as any).attributes && (node as any).attributes[this.props.comparator]) {
             const definingAttribute = (node as any).attributes[this.props.comparator];
 
-            return this.props[definingAttribute] === false ? node : null;
+            return this.props[definingAttribute] ? node : null;
         }
     }
 

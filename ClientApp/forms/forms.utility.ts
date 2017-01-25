@@ -8,29 +8,32 @@ export const validateEmail = (value: string) => {
     return re.test(value);
 }
 
-export interface IValidators {
-    [prop: string]: boolean;
+export interface IErrorsMap {
+   [prop: string]: boolean; 
 }
 
-
+export interface IValidatorsMap {
+    [prop: string]: (value: string | boolean | number) => boolean;
+}
 
 export interface IFormInputState {
     value: string;
     dirty: boolean;
-    validators: IValidators;
+    errors: IErrorsMap;
+    validators: IValidatorsMap;
 }
 
-export const stateValidators = (inputState: IFormInputState): IValidators => {
-    return inputState ? inputState.validators || {} as IValidators : {} as IValidators;
+export const getStateErrors = (inputState: IFormInputState): IErrorsMap => {
+    return inputState ? inputState.errors || {} as IErrorsMap : {} as IErrorsMap;
 }
 
 export const validateInput = 
-    (value: string | boolean | number, validatorsMap: {[prop: string]: (value: string | boolean | number) => boolean}): IValidators => {
-        let validators = {} as IValidators;
+    (value: string | boolean | number, validatorsMap: IValidatorsMap): IErrorsMap => {
+        let errors = {} as IErrorsMap;
 
         for (let name in validatorsMap) {
-            validators[name] = validatorsMap[name](value);
+            errors[name] = !validatorsMap[name](value);
         }
 
-        return validators;
+        return errors;
     }

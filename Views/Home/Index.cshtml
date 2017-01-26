@@ -7,8 +7,5 @@
                 asp-prerender-data="new {menuItems = @Model.Routes}"></div>
 
 @section scripts {
-    <script>
-        window.menuItems = @Html.Raw(JsonConvert.SerializeObject(Model.Routes));
-    </script>
     <script src="~/dist/app.js"></script>
 }

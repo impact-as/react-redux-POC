@@ -15,7 +15,8 @@
     "Microsoft.AspNetCore.Mvc": "*",
     "Microsoft.AspNetCore.Routing": "*",
     "Microsoft.AspNetCore.StaticFiles": "1.1.0",
-    "Microsoft.AspNetCore.ReactServices": "1.0.0-*"
+    "Microsoft.AspNetCore.ReactServices": "1.0.0-*",
+    "Microsoft.AspNetCore.ResponseCompression": "1.0.0"
   },
   "tools": {
     "Microsoft.AspNetCore.Server.IISIntegration.Tools": "1.0.0-preview2-final"
